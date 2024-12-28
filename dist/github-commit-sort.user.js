@@ -119,7 +119,7 @@
       });
     }
   }
-  console.log(`${"github-commit-sort"}(v${VERSION})`);
+  console.log(`${ID}(v${VERSION})`);
   const observer = new MutationObserver(debounce({ delay: 100 }, main));
   observer.observe(document.body, {
     childList: true,

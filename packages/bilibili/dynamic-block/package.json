@@ -1,0 +1,30 @@
+{
+  "name": "bilibili-dynamic-block",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "bilibili dynamic block",
+  "author": {
+    "name": "xiaohuohumax",
+    "url": "https://github.com/xiaohuohumax"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaohuohumax/userscripts.git"
+  },
+  "keywords": [
+    "typescript",
+    "tampermonkey",
+    "bilibili",
+    "dynamic",
+    "block"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --emptyOutDir=false"
+  },
+  "dependencies": {
+    "sweetalert": "^2.1.2"
+  }
+}

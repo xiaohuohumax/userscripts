@@ -1,0 +1,76 @@
+.swal-overlay,
+.swal-overlay input {
+  color: rgba(0, 0, 0, .65);
+}
+
+.swal-overlay .swal-button--success {
+  background-color: #a3dd82;
+}
+
+.swal-overlay .swal-button--success:hover {
+  background-color: #98d973;
+}
+
+.swal-overlay .swal-title {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.swal-overlay hr {
+  border-color: rgba(0, 0, 0, .14);
+  margin: 10px 1px 5px;
+}
+
+.swal-overlay .add-rule-container {
+  display: flex;
+  margin: 6px 0;
+}
+
+.add-rule-container input {
+  border-radius: 6px 0 0 6px;
+}
+
+.add-rule-container button {
+  flex-shrink: 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.rules-container {
+  min-height: 200px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.rules-container .empty {
+  padding: 8px;
+  font-size: 14px;
+}
+
+.rules-container .rules-item {
+  display: flex;
+  margin: 6px 0;
+  position: relative;
+}
+
+.rules-container .rules-item input {
+  border-radius: 6px;
+}
+
+.swal-overlay .rules-item .bili-modal__close {
+  top: 50%;
+  transform: translate(0, -50%);
+  right: 10px;
+}
+
+#bilibili-dynamic-block-stat {
+  position: fixed;
+  bottom: 3px;
+  right: 3px;
+  font-size: 10px;
+  z-index: 999;
+  cursor: pointer;
+}
+
+#bilibili-dynamic-block-stat:hover{
+  font-weight: 900;
+}

@@ -113,7 +113,7 @@ async function main() {
   }
 }
 
-console.log(`${import.meta.env.VITE_APP_ID}(v${VERSION})`)
+console.log(`${ID}(v${VERSION})`)
 
 const observer = new MutationObserver(debounce({ delay: 100 }, main))
 observer.observe(document.body, {
