@@ -4,4 +4,6 @@
 
 ## 🐒 脚本列表
 
-+ [github-commit-sort](./packages/github/commit-sort/README.md)：GitHub 仓库文件按提交时间排序
+| 名称                                                          | 功能                          | 安装                                                                            |
+| ------------------------------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------- |
+| [GitHub Commit Sort](./packages/github/commit-sort/README.md) | GitHub 仓库文件按提交时间排序 | [⏬ Greasy Fork](https://greasyfork.org/zh-CN/scripts/522083-github-commit-sort) |
