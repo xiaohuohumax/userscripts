@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         github-commit-sort
+// @name         GitHub Commit Sort
 // @namespace    xiaohuohumax/userscripts/github-commit-sort
-// @version      1.0.0
+// @version      1.0.1
 // @author       xiaohuohumax
-// @description  github commit sort
+// @description  GitHub 仓库文件按提交时间排序
 // @license      MIT
 // @icon         https://github.githubassets.com/favicons/favicon-dark.png
 // @source       https://github.com/xiaohuohumax/userscripts.git
@@ -39,7 +39,7 @@
     debounced.flush = (...args) => func(...args);
     return debounced;
   };
-  const version = "1.0.0";
+  const version = "1.0.1";
   const ID = "github-commit-sort";
   const VERSION = version;
   const SORT_BUTTON_ID = `${ID}-sort-button`;
