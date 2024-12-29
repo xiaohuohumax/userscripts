@@ -102,5 +102,9 @@
     "vite",
     "xsmall",
     "bili"
+  ],
+  "cSpell.ignorePaths": [
+    "*.yaml",
+    "*.vscode"
   ]
 }
