@@ -87,21 +87,23 @@
   // Spell check
   "cSpell.words": [
     "antfu",
+    "bili",
     "bilibili",
     "breakline",
     "commitlint",
     "labelledby",
+    "onurlchange",
     "prefixs",
     "radash",
     "swal",
     "sweetalert",
     "tada",
     "tampermonkey",
+    "urlchange",
     "userscript",
     "userscripts",
     "vite",
-    "xsmall",
-    "bili"
+    "xsmall"
   ],
   "cSpell.ignorePaths": [
     "*.yaml",

@@ -10,12 +10,18 @@
 // @downloadURL  https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/dist/github-commit-sort.user.js
 // @updateURL    https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/dist/github-commit-sort.user.js
 // @match        https://github.com/*
+// @grant        GM_addValueChangeListener
+// @grant        GM_getValue
+// @grant        GM_setValue
 // @noframes
 // ==/UserScript==
 
 (function () {
   'use strict';
 
+  var __defProp = Object.defineProperty;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   const debounce = ({ delay }, func) => {
     let timer = void 0;
     let active = true;
@@ -40,90 +46,141 @@
     return debounced;
   };
   const version = "1.0.1";
+  var _GM_addValueChangeListener = /* @__PURE__ */ (() => typeof GM_addValueChangeListener != "undefined" ? GM_addValueChangeListener : void 0)();
+  var _GM_getValue = /* @__PURE__ */ (() => typeof GM_getValue != "undefined" ? GM_getValue : void 0)();
+  var _GM_setValue = /* @__PURE__ */ (() => typeof GM_setValue != "undefined" ? GM_setValue : void 0)();
+  class Store {
+    constructor() {
+      __publicField(this, "state", "default");
+      __publicField(this, "listeners", []);
+      __publicField(this, "SORT_ICON_MAP", {
+        desc: "▴",
+        asc: "▾",
+        default: "="
+      });
+      this.state = _GM_getValue("state", "default");
+      _GM_addValueChangeListener("state", (_key, _oldValue, newValue, remote) => {
+        if (remote) {
+          this.state = newValue;
+          this.listeners.forEach((listener) => listener(this.state));
+        }
+      });
+    }
+    addChangeListener(listener) {
+      this.listeners.push(listener);
+    }
+    toggleState() {
+      const states = Object.keys(this.SORT_ICON_MAP);
+      this.state = states[(states.indexOf(this.state) + 1) % states.length];
+      _GM_setValue("state", this.state);
+    }
+    updateState(state) {
+      this.state = state;
+      _GM_setValue("state", this.state);
+    }
+    get sortIcon() {
+      return this.SORT_ICON_MAP[this.state];
+    }
+  }
   const ID = "github-commit-sort";
   const VERSION = version;
   const SORT_BUTTON_ID = `${ID}-sort-button`;
-  const SORT_ICON_MAP = {
-    desc: "▴",
-    asc: "▾",
-    default: "="
-  };
-  const STATES = Object.keys(SORT_ICON_MAP);
-  function createSortButton(state2, marginLeft = "") {
-    const button = document.createElement("button");
-    button.textContent = SORT_ICON_MAP[state2];
-    button.classList.add(SORT_BUTTON_ID, "Button", "Button--iconOnly", "Button--secondary");
-    button.style.width = "var(--control-xsmall-size)";
-    button.style.height = "var(--control-xsmall-size)";
-    button.style.marginLeft = marginLeft;
-    return button;
+  const store = new Store();
+  function queryTable() {
+    return document.querySelector('table[aria-labelledby="folders-and-files"]');
   }
-  let state = "default";
-  async function main() {
-    const tableElement = document.querySelector('table[aria-labelledby="folders-and-files"]');
-    if (!tableElement) {
-      return;
+  function querySortButtonParent() {
+    const table = queryTable();
+    const mainTable = table == null ? void 0 : table.querySelector(
+      'body tr[class^="Box-sc-"] > td > div > div:last-child'
+    );
+    if (mainTable) {
+      return { sortButtonParent: mainTable, isMainPage: true };
     }
-    const tableBody = tableElement.querySelector("tbody");
+    const treeTable = table == null ? void 0 : table.querySelector(
+      "thead > tr > th:last-child > div"
+    );
+    return { sortButtonParent: treeTable, isMainPage: false };
+  }
+  function sortRowsByState(sortButton, toggle) {
+    var _a;
+    const tableBody = (_a = queryTable()) == null ? void 0 : _a.querySelector("tbody");
     if (!tableBody) {
       return;
     }
-    let isMainTable = true;
-    let tableHead = tableElement.querySelector('tbody > tr[class^="Box-sc-"] > td > div > div:last-child');
-    if (!tableHead) {
-      tableHead = tableElement.querySelector("thead > tr > th:last-child > div");
-      if (!tableHead) {
-        return;
+    const hasSkeleton = tableBody.querySelector('div[class^="Skeleton"]');
+    if (hasSkeleton) {
+      return;
+    }
+    const rowElements = tableBody.querySelectorAll(
+      'tr[class^="react-directory-row"]'
+    );
+    const rows = Array.from(rowElements).map((element) => {
+      const relativeTimeElement = element.querySelector("relative-time");
+      const id = element.getAttribute("id");
+      const datetime = relativeTimeElement.getAttribute("datetime");
+      return {
+        element,
+        date: new Date(datetime),
+        id,
+        index: Number(id.split("-").pop())
+      };
+    });
+    toggle && store.toggleState();
+    sortButton.textContent = store.sortIcon;
+    const sortedRows = rows.sort((a, b) => {
+      if (store.state === "default") {
+        return a.index - b.index;
       }
-      isMainTable = false;
-      const tableHeadParent = tableHead.parentNode;
-      tableHeadParent.style.width = "170px";
+      const aDate = a.date.getTime();
+      const bDate = b.date.getTime();
+      return store.state === "asc" ? aDate - bDate : bDate - aDate;
+    });
+    const viewAllFilesElement = tableBody.querySelector(
+      'tr[data-testid="view-all-files-row"'
+    );
+    sortedRows.forEach((row) => {
+      row.element.remove();
+      viewAllFilesElement ? tableBody.insertBefore(row.element, viewAllFilesElement) : tableBody.appendChild(row.element);
+    });
+  }
+  function main(observer2) {
+    const { sortButtonParent, isMainPage } = querySortButtonParent();
+    if (!sortButtonParent) {
+      return;
     }
-    const sortRowsByState = () => {
-      const rowElements = Array.from(tableBody.querySelectorAll('tr[class^="react-directory-row"]'));
-      const rows = rowElements.map((element) => {
-        const relativeTimeElement = element.querySelector("relative-time");
-        const id = element.getAttribute("id");
-        return {
-          element,
-          date: new Date(relativeTimeElement.getAttribute("datetime")),
-          textContent: relativeTimeElement.shadowRoot.textContent,
-          id,
-          defaultIndex: Number(id.split("-").pop())
-        };
-      });
-      const sortedRows = rows.sort((a, b) => {
-        if (state === "default") {
-          return a.defaultIndex - b.defaultIndex;
-        }
-        const aDate = a.date.getTime();
-        const bDate = b.date.getTime();
-        return a.textContent === b.textContent ? 0 : state === "asc" ? aDate - bDate : bDate - aDate;
-      });
-      const tableViewAllFilesElement = tableBody.querySelector('tr[data-testid="view-all-files-row"');
-      sortedRows.forEach((row) => {
-        row.element.remove();
-        tableViewAllFilesElement ? tableBody.insertBefore(row.element, tableViewAllFilesElement) : tableBody.appendChild(row.element);
-      });
-    };
-    let sortButton = tableHead.querySelector(`button.${SORT_BUTTON_ID}`);
+    observer2 && observer2.disconnect();
+    if (isMainPage) {
+      sortButtonParent.style.alignItems = "center";
+    } else {
+      const th = sortButtonParent.parentNode;
+      th.style.width = "170px";
+    }
+    let sortButton = document.getElementById(SORT_BUTTON_ID);
     if (!sortButton) {
-      sortButton = createSortButton("default", isMainTable ? "0" : "10px");
-      tableHead.appendChild(sortButton);
-      tableHead.style.display = "inline-flex";
-      tableHead.style.alignItems = "center";
-      sortButton.addEventListener("click", () => {
-        state = STATES[(STATES.indexOf(state) + 1) % STATES.length];
-        sortRowsByState();
-        sortButton.textContent = SORT_ICON_MAP[state];
-      });
+      sortButton = document.createElement("button");
+      sortButton.textContent = store.sortIcon;
+      sortButton.classList.add("Button", "Button--iconOnly", "Button--secondary");
+      sortButton.id = SORT_BUTTON_ID;
+      sortButton.style.width = "var(--control-xsmall-size)";
+      sortButton.style.height = "var(--control-xsmall-size)";
+      sortButton.style.marginLeft = isMainPage ? "0" : "10px";
+      sortButtonParent.appendChild(sortButton);
+      sortButton.addEventListener("click", () => sortRowsByState(sortButton, true));
     }
+    sortRowsByState(sortButton, false);
+    observer2 && observer2.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
   }
   console.log(`${ID}(v${VERSION})`);
-  const observer = new MutationObserver(debounce({ delay: 100 }, main));
+  const mainDebounced = debounce({ delay: 500 }, main);
+  const observer = new MutationObserver(() => mainDebounced(observer));
   observer.observe(document.body, {
     childList: true,
     subtree: true
   });
+  store.addChangeListener(mainDebounced.bind(null, observer));
 
 })();

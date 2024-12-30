@@ -1,122 +1,138 @@
 import { debounce } from 'radash'
 import { version } from '../package.json'
-
-type State = 'desc' | 'asc' | 'default'
+import Store from './store'
 
 interface Row {
   element: HTMLTableRowElement
   date: Date
-  textContent: string
   id: string
-  defaultIndex: number
+  index: number
 }
+
+type TypeOrEmpty<T> = T | null | undefined
 
 const ID: string = import.meta.env.VITE_APP_ID
 const VERSION: string = version
 const SORT_BUTTON_ID = `${ID}-sort-button`
-const SORT_ICON_MAP: Record<State, string> = {
-  desc: '▴',
-  asc: '▾',
-  default: '=',
-}
-const STATES = Object.keys(SORT_ICON_MAP) as State[]
 
-function createSortButton(state: State, marginLeft: string = ''): HTMLButtonElement {
-  const button = document.createElement('button')
-  button.textContent = SORT_ICON_MAP[state]
-  button.classList.add(SORT_BUTTON_ID, 'Button', 'Button--iconOnly', 'Button--secondary')
-  button.style.width = 'var(--control-xsmall-size)'
-  button.style.height = 'var(--control-xsmall-size)'
-  button.style.marginLeft = marginLeft
-  return button
+const store: Store = new Store()
+
+function queryTable(): TypeOrEmpty<HTMLTableElement> {
+  return document.querySelector<HTMLTableElement>('table[aria-labelledby="folders-and-files"]')
 }
 
-let state: State = 'default'
-
-async function main() {
-  const tableElement = document.querySelector<HTMLTableElement>('table[aria-labelledby="folders-and-files"]')
-
-  if (!tableElement) {
-    return
+function querySortButtonParent(): { sortButtonParent: TypeOrEmpty<HTMLDivElement>, isMainPage: boolean } {
+  const table = queryTable()
+  const mainTable = table?.querySelector<HTMLDivElement>(
+    'body tr[class^="Box-sc-"] > td > div > div:last-child',
+  )
+  if (mainTable) {
+    return { sortButtonParent: mainTable, isMainPage: true }
   }
+  const treeTable = table?.querySelector<HTMLDivElement>(
+    'thead > tr > th:last-child > div',
+  )
+  return { sortButtonParent: treeTable, isMainPage: false }
+}
 
-  const tableBody = tableElement.querySelector<HTMLTableSectionElement>('tbody')
+function sortRowsByState(sortButton: HTMLButtonElement, toggle: boolean) {
+  const tableBody = queryTable()?.querySelector<HTMLTableSectionElement>('tbody')
   if (!tableBody) {
     return
   }
 
-  let isMainTable = true
-  let tableHead = tableElement.querySelector<HTMLDivElement>('tbody > tr[class^="Box-sc-"] > td > div > div:last-child')
+  const hasSkeleton = tableBody.querySelector('div[class^="Skeleton"]')
+  if (hasSkeleton) {
+    return
+  }
 
-  if (!tableHead) {
-    tableHead = tableElement.querySelector<HTMLDivElement>('thead > tr > th:last-child > div')
+  const rowElements = tableBody.querySelectorAll<HTMLTableRowElement>(
+    'tr[class^="react-directory-row"]',
+  )
 
-    if (!tableHead) {
-      return
+  const rows: Row[] = Array.from(rowElements).map((element) => {
+    const relativeTimeElement = element.querySelector<HTMLSpanElement>('relative-time')!
+    const id = element.getAttribute('id')!
+    const datetime = relativeTimeElement.getAttribute('datetime')!
+
+    return {
+      element,
+      date: new Date(datetime),
+      id,
+      index: Number(id.split('-').pop()!),
     }
-    isMainTable = false
-    const tableHeadParent = tableHead.parentNode as HTMLTableCellElement
-    tableHeadParent.style.width = '170px'
+  })
+
+  toggle && store.toggleState()
+  sortButton.textContent = store.sortIcon
+
+  const sortedRows = rows.sort((a, b) => {
+    if (store.state === 'default') {
+      return a.index - b.index
+    }
+    const aDate = a.date.getTime()
+    const bDate = b.date.getTime()
+
+    return store.state === 'asc'
+      ? aDate - bDate
+      : bDate - aDate
+  })
+
+  const viewAllFilesElement = tableBody.querySelector<HTMLTableRowElement>(
+    'tr[data-testid="view-all-files-row"',
+  )
+
+  sortedRows.forEach((row) => {
+    row.element.remove()
+    viewAllFilesElement
+      ? tableBody.insertBefore(row.element, viewAllFilesElement)
+      : tableBody.appendChild(row.element)
+  })
+}
+
+function main(observer: MutationObserver) {
+  const { sortButtonParent, isMainPage } = querySortButtonParent()
+  if (!sortButtonParent) {
+    return
   }
 
-  const sortRowsByState = () => {
-    const rowElements = Array.from(tableBody.querySelectorAll<HTMLTableRowElement>('tr[class^="react-directory-row"]'))
+  observer && observer.disconnect()
 
-    const rows: Row[] = rowElements.map((element) => {
-      const relativeTimeElement = element.querySelector<HTMLSpanElement>('relative-time')!
-      const id = element.getAttribute('id')!
-      return {
-        element,
-        date: new Date(relativeTimeElement.getAttribute('datetime')!),
-        textContent: relativeTimeElement.shadowRoot!.textContent!,
-        id,
-        defaultIndex: Number(id.split('-').pop()!),
-      }
-    })
-
-    const sortedRows = rows.sort((a, b) => {
-      if (state === 'default') {
-        return a.defaultIndex - b.defaultIndex
-      }
-      const aDate = a.date.getTime()
-      const bDate = b.date.getTime()
-
-      return a.textContent === b.textContent
-        ? 0
-        : state === 'asc'
-          ? aDate - bDate
-          : bDate - aDate
-    })
-
-    const tableViewAllFilesElement = tableBody.querySelector<HTMLTableRowElement>('tr[data-testid="view-all-files-row"')
-
-    sortedRows.forEach((row) => {
-      row.element.remove()
-      tableViewAllFilesElement
-        ? tableBody.insertBefore(row.element, tableViewAllFilesElement)
-        : tableBody.appendChild(row.element)
-    })
+  if (isMainPage) {
+    sortButtonParent.style.alignItems = 'center'
+  }
+  else {
+    const th = sortButtonParent.parentNode as HTMLElement
+    th.style.width = '170px'
   }
 
-  let sortButton = tableHead.querySelector<HTMLButtonElement>(`button.${SORT_BUTTON_ID}`)
+  let sortButton = document.getElementById(SORT_BUTTON_ID) as TypeOrEmpty<HTMLButtonElement>
   if (!sortButton) {
-    sortButton = createSortButton('default', isMainTable ? '0' : '10px')
-    tableHead.appendChild(sortButton)
-    tableHead.style.display = 'inline-flex'
-    tableHead.style.alignItems = 'center'
-
-    sortButton.addEventListener('click', () => {
-      state = STATES[(STATES.indexOf(state) + 1) % STATES.length]
-      sortRowsByState()
-      sortButton!.textContent = SORT_ICON_MAP[state]
-    })
+    sortButton = document.createElement('button')
+    sortButton.textContent = store.sortIcon
+    sortButton.classList.add('Button', 'Button--iconOnly', 'Button--secondary')
+    sortButton.id = SORT_BUTTON_ID
+    sortButton.style.width = 'var(--control-xsmall-size)'
+    sortButton.style.height = 'var(--control-xsmall-size)'
+    sortButton.style.marginLeft = isMainPage ? '0' : '10px'
+    sortButtonParent.appendChild(sortButton)
+    sortButton.addEventListener('click', () => sortRowsByState(sortButton!, true))
   }
+  sortRowsByState(sortButton, false)
+
+  observer && observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  })
 }
 
 console.log(`${ID}(v${VERSION})`)
 
-const observer = new MutationObserver(debounce({ delay: 100 }, main))
+const mainDebounced = debounce({ delay: 500 }, main)
+const observer = new MutationObserver(() => mainDebounced(observer))
 observer.observe(document.body, {
   childList: true,
   subtree: true,
 })
+
+store.addChangeListener(mainDebounced.bind(null, observer))
