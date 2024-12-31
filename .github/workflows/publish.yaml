@@ -27,10 +27,18 @@ jobs:
           cache: pnpm
 
       - name: Install
-        run: pnpm install --frozen-lockfile
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      - name: Push UserScript
+        uses: stefanzweifel/git-auto-commit-action@v5
+        id: auto-commit-action
+        with:
+          commit_message: 'build: :package: build user script'
+          file_pattern: dist
 
       - name: Create Release And Tag
-        id: changesets
         uses: changesets/action@v1
         with:
           publish: npx @changesets/cli tag

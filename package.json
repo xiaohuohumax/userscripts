@@ -21,12 +21,11 @@
   ],
   "scripts": {
     "build": "rimraf dist && pnpm -r --filter=./packages/** --stream run build",
-    "commit": "pnpm build && git add . && cz",
+    "commit": "git add . && cz",
     "postinstall": "simple-git-hooks",
     "changeset": "changeset",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "release": "pnpm build && changeset publish"
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.12.1",
