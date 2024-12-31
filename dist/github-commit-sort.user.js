@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GitHub Commit Sort
 // @namespace    xiaohuohumax/userscripts/github-commit-sort
-// @version      1.0.1
+// @version      1.1.0
 // @author       xiaohuohumax
 // @description  GitHub 仓库文件按提交时间排序
 // @license      MIT
@@ -45,7 +45,7 @@
     debounced.flush = (...args) => func(...args);
     return debounced;
   };
-  const version = "1.0.1";
+  const version = "1.1.0";
   var _GM_addValueChangeListener = /* @__PURE__ */ (() => typeof GM_addValueChangeListener != "undefined" ? GM_addValueChangeListener : void 0)();
   var _GM_getValue = /* @__PURE__ */ (() => typeof GM_getValue != "undefined" ? GM_getValue : void 0)();
   var _GM_setValue = /* @__PURE__ */ (() => typeof GM_setValue != "undefined" ? GM_setValue : void 0)();
