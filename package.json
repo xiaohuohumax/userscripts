@@ -20,7 +20,9 @@
     "userscripts"
   ],
   "scripts": {
-    "build": "rimraf dist && pnpm -r --filter=./packages/** --stream run build",
+    "build": "pnpm build:packages && pnpm build:apps",
+    "build:apps": "rimraf dist && pnpm -r --filter=./apps/** --stream run build",
+    "build:packages": "pnpm -r --filter=./packages/** --stream run build",
     "commit": "git add . && cz",
     "postinstall": "simple-git-hooks",
     "changeset": "changeset",

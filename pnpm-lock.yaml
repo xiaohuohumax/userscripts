@@ -48,13 +48,13 @@ importers:
         specifier: ^5.0.3
         version: 5.0.3(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.1)(yaml@2.6.0))
 
-  packages/bilibili/dynamic-block:
+  apps/bilibili/dynamic-block:
     dependencies:
       sweetalert:
         specifier: ^2.1.2
         version: 2.1.2
 
-  packages/github/commit-sort: {}
+  apps/github/commit-sort: {}
 
 packages:
 
