@@ -55,9 +55,8 @@
     debounced.flush = (...args) => func(...args);
     return debounced;
   };
-  const version = "1.0.0";
   const ID = "bilibili-dynamic-block";
-  const VERSION = version;
+  const VERSION = "1.0.0";
   const LAST_VERSION = 1;
   class Store {
     constructor() {

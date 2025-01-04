@@ -45,7 +45,8 @@
     debounced.flush = (...args) => func(...args);
     return debounced;
   };
-  const version = "1.1.0";
+  const ID = "github-commit-sort";
+  const VERSION = "1.1.0";
   var _GM_addValueChangeListener = /* @__PURE__ */ (() => typeof GM_addValueChangeListener != "undefined" ? GM_addValueChangeListener : void 0)();
   var _GM_getValue = /* @__PURE__ */ (() => typeof GM_getValue != "undefined" ? GM_getValue : void 0)();
   var _GM_setValue = /* @__PURE__ */ (() => typeof GM_setValue != "undefined" ? GM_setValue : void 0)();
@@ -82,8 +83,6 @@
       return this.SORT_ICON_MAP[this.state];
     }
   }
-  const ID = "github-commit-sort";
-  const VERSION = version;
   const SORT_BUTTON_ID = `${ID}-sort-button`;
   const store = new Store();
   function queryTable() {
