@@ -91,6 +91,7 @@
     "bilibili",
     "breakline",
     "commitlint",
+    "dede",
     "labelledby",
     "onurlchange",
     "prefixs",
@@ -99,10 +100,13 @@
     "sweetalert",
     "tada",
     "tampermonkey",
+    "unfollow",
     "urlchange",
     "userscript",
     "userscripts",
     "vite",
+    "vmid",
+    "webid",
     "xsmall"
   ],
   "cSpell.ignorePaths": [

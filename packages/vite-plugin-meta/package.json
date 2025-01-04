@@ -1,0 +1,32 @@
+{
+  "name": "vite-plugin-meta",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "load project meta data",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./client.d.ts"
+    }
+  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "client.d.ts",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts"
+  },
+  "dependencies": {
+    "local-pkg": "^0.5.1"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "vite": "^6.0.6"
+  }
+}

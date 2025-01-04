@@ -1,5 +1,5 @@
 import { debounce } from 'radash'
-import { version } from '../package.json'
+import { ID, VERSION } from 'virtual:meta'
 import Store from './store'
 
 interface Row {
@@ -11,8 +11,6 @@ interface Row {
 
 type TypeOrEmpty<T> = T | null | undefined
 
-const ID: string = import.meta.env.VITE_APP_ID
-const VERSION: string = version
 const SORT_BUTTON_ID = `${ID}-sort-button`
 
 const store: Store = new Store()

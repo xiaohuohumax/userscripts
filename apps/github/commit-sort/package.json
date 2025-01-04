@@ -23,5 +23,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build --emptyOutDir=false"
+  },
+  "devDependencies": {
+    "vite-plugin-meta": "workspace:^"
   }
 }

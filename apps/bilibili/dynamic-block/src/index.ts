@@ -1,6 +1,6 @@
 import { GM_registerMenuCommand } from '$'
 import { debounce } from 'radash'
-import { ID, VERSION } from './constant'
+import { ID, VERSION } from 'virtual:meta'
 import Store from './store'
 import View from './view'
 import './style.css'

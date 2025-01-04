@@ -1,6 +1,6 @@
 import type Store from './store'
 import swal from 'sweetalert'
-import { ID } from './constant'
+import { ID } from 'virtual:meta'
 
 export default class View {
   private statInfo: string = ''

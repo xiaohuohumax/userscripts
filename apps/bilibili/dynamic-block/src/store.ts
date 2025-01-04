@@ -1,5 +1,5 @@
 import { GM_addValueChangeListener, GM_getValue, GM_setValue } from '$'
-import { ID } from './constant'
+import { ID } from 'virtual:meta'
 
 const LAST_VERSION = 1
 

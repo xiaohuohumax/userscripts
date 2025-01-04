@@ -26,5 +26,8 @@
   },
   "dependencies": {
     "sweetalert": "^2.1.2"
+  },
+  "devDependencies": {
+    "vite-plugin-meta": "workspace:^"
   }
 }

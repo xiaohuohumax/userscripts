@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import meta from 'vite-plugin-meta'
 import monkey, { cdn } from 'vite-plugin-monkey'
 
 export default defineConfig({
@@ -6,6 +7,7 @@ export default defineConfig({
     outDir: '../../../dist/',
   },
   plugins: [
+    meta(),
     monkey({
       entry: 'src/index.ts',
       build: {
