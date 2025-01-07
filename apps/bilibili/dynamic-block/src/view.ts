@@ -48,7 +48,7 @@ export default class View {
       const ruleItems = this.store.blockRules.map((rule) => {
         return `<div class="rules-item">
         <input type="text" class="swal-content__input" disabled value="${rule}"/>
-        <div class="bili-modal__close" data-rule="${rule}"></div>
+        <div class="close-item" data-rule="${rule}"></div>
       </div>`
       })
       rulesContainer.innerHTML = ruleItems.length > 0
@@ -60,7 +60,7 @@ export default class View {
 
     element.addEventListener('click', (event) => {
       const target = event.target as HTMLElement
-      if (target.classList.contains('bili-modal__close')) {
+      if (target.classList.contains('close-item')) {
         const rule = target.dataset.rule
         if (this.store.deleteBlockRule(rule)) {
           renderRuleItems()

@@ -56,10 +56,22 @@
   border-radius: 6px;
 }
 
-.swal-overlay .rules-item .bili-modal__close {
+.swal-overlay .rules-item .close-item {
   top: 50%;
   transform: translate(0, -50%);
   right: 10px;
+  position: absolute;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00LjQ3IDQuNDdhLjc1Ljc1IDAgMDAwIDEuMDZsNS41NCA1LjU0MS01LjU0IDUuNTRhLjc1Ljc1IDAgMDAxLjA2IDEuMDYxbDUuNTQxLTUuNTQgNS41NCA1LjU0YS43NS43NSAwIDAwMS4wNjEtMS4wNmwtNS41NC01LjU0IDUuNTQtNS41NDJhLjc1Ljc1IDAgMTAtMS4wNi0xLjA2bC01LjU0IDUuNTRMNS41MyA0LjQ3YS43NS43NSAwIDAwLTEuMDYgMHoiIGZpbGw9IiM2MTY2NkQiLz48L3N2Zz4=);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 22px;
+  width: 22px;
+  cursor: pointer;
+}
+
+.swal-overlay .rules-item .close-item:hover {
+  transform: translate(0, -50%) scale(1.125);
 }
 
 #bilibili-dynamic-block-stat {
