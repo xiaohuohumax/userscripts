@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bilibili Dynamic Block
 // @namespace    xiaohuohumax/userscripts/bilibili-dynamic-block
-// @version      1.0.0
+// @version      1.0.1
 // @author       xiaohuohumax
 // @description  Bilibili 动态拦截
 // @license      MIT
@@ -56,7 +56,7 @@
     return debounced;
   };
   const ID = "bilibili-dynamic-block";
-  const VERSION = "1.0.0";
+  const VERSION = "1.0.1";
   const LAST_VERSION = 1;
   class Store {
     constructor() {
