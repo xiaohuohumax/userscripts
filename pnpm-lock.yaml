@@ -83,6 +83,16 @@ importers:
         specifier: workspace:^
         version: link:../../../packages/vite-plugin-meta
 
+  apps/common/right-click-tab:
+    dependencies:
+      sweetalert:
+        specifier: ^2.1.2
+        version: 2.1.2
+    devDependencies:
+      vite-plugin-meta:
+        specifier: workspace:^
+        version: link:../../../packages/vite-plugin-meta
+
   apps/github/commit-sort:
     devDependencies:
       vite-plugin-meta:
