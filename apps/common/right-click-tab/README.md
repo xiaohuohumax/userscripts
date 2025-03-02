@@ -4,7 +4,7 @@
 
 ## 📋 更新日志
 
-[CHANGELOG](https://github.com/xiaohuohumax/userscripts/blob/main/packages/common/right-click-tab/CHANGELOG.md)
+[CHANGELOG](https://github.com/xiaohuohumax/userscripts/blob/main/apps/common/right-click-tab/CHANGELOG.md)
 
 ## 📖 使用方式
 

@@ -4,8 +4,8 @@
 
 ## 📋 更新日志
 
-[CHANGELOG](https://github.com/xiaohuohumax/userscripts/blob/main/packages/github/commit-sort/CHANGELOG.md)
+[CHANGELOG](https://github.com/xiaohuohumax/userscripts/blob/main/apps/github/commit-sort/CHANGELOG.md)
 
 ## 📖 使用方式
 
-![](https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/packages/github/commit-sort/images/sort.gif)
+![](https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/apps/github/commit-sort/images/sort.gif)
