@@ -11,3 +11,7 @@
 1. 超链接单击右键：在新标签页打开
 2. 超链接双击右键：原右键菜单
 3. 非超链接单击右键：原右键菜单
+
+![](https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/apps/common/right-click-tab/images/monkey.png)
+
+![](https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/apps/common/right-click-tab/images/config-result.png)
