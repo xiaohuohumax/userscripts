@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Common Right Click Tab
+// @name         🖱右键超链接快速打开新标签页📑（Common Right Click Tab）
 // @namespace    xiaohuohumax/userscripts/common-right-click-tab
-// @version      1.1.0
+// @version      1.1.1
 // @author       xiaohuohumax
-// @description  浏览器右键修改：超链接单击改为在新标签页打开，双击为原右键菜单
+// @description  右键超链接即可快速打开新标签页，并且新标签页可以配置前台或后台运行。效果与 Ctrl + 左键单击超链接相同。
 // @license      MIT
 // @icon         https://raw.githubusercontent.com/xiaohuohumax/logo/refs/heads/main/logos/logo.svg
 // @source       https://github.com/xiaohuohumax/userscripts.git
@@ -32,7 +32,7 @@
   var _GM_registerMenuCommand = /* @__PURE__ */ (() => typeof GM_registerMenuCommand != "undefined" ? GM_registerMenuCommand : void 0)();
   var _GM_setValue = /* @__PURE__ */ (() => typeof GM_setValue != "undefined" ? GM_setValue : void 0)();
   const ID = "common-right-click-tab";
-  const VERSION = "1.1.0";
+  const VERSION = "1.1.1";
   const LAST_VERSION = 1;
   class Store {
     constructor() {
