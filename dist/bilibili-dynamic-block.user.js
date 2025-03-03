@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Bilibili Dynamic Block
+// @name         Bilibili 动态卡片拦截♻（Bilibili Dynamic Block）
 // @namespace    xiaohuohumax/userscripts/bilibili-dynamic-block
-// @version      1.0.1
+// @version      1.0.2
 // @author       xiaohuohumax
-// @description  Bilibili 动态拦截
+// @description  此脚本可以依据规则拦截 Bilibili 动态卡片。
 // @license      MIT
 // @icon         https://static.hdslb.com/mobile/img/512.png
 // @source       https://github.com/xiaohuohumax/userscripts.git
@@ -56,7 +56,7 @@
     return debounced;
   };
   const ID = "bilibili-dynamic-block";
-  const VERSION = "1.0.1";
+  const VERSION = "1.0.2";
   const LAST_VERSION = 1;
   class Store {
     constructor() {
