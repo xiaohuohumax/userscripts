@@ -1,5 +1,11 @@
 # bilibili-dynamic-block
 
+## 1.0.2
+
+### Patch Changes
+
+- 修改脚本名称和描述
+
 ## 1.0.1
 
 ### Patch Changes

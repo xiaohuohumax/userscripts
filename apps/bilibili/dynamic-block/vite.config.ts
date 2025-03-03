@@ -16,8 +16,8 @@ export default defineConfig({
         },
       },
       userscript: {
-        name: 'Bilibili Dynamic Block',
-        description: 'Bilibili 动态拦截',
+        name: 'Bilibili 动态卡片拦截♻（Bilibili Dynamic Block）',
+        description: '此脚本可以依据规则拦截 Bilibili 动态卡片。',
         icon: 'https://static.hdslb.com/mobile/img/512.png',
         namespace: 'xiaohuohumax/userscripts/bilibili-dynamic-block',
         license: 'MIT',
