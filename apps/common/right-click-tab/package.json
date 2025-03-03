@@ -1,9 +1,9 @@
 {
   "name": "common-right-click-tab",
   "type": "module",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
-  "description": "common right click tab",
+  "description": "🖱右键超链接快速打开新标签页📑（Common Right Click Tab）-- 右键超链接即可快速打开新标签页，并且新标签页可以配置前台或后台运行。效果与 Ctrl + 左键单击超链接相同。",
   "author": {
     "name": "xiaohuohumax",
     "url": "https://github.com/xiaohuohumax"

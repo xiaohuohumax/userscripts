@@ -16,8 +16,8 @@ export default defineConfig({
         },
       },
       userscript: {
-        'name': 'Common Right Click Tab',
-        'description': '浏览器右键修改：超链接单击改为在新标签页打开，双击为原右键菜单',
+        'name': '🖱右键超链接快速打开新标签页📑（Common Right Click Tab）',
+        'description': '右键超链接即可快速打开新标签页，并且新标签页可以配置前台或后台运行。效果与 Ctrl + 左键单击超链接相同。',
         'icon': 'https://raw.githubusercontent.com/xiaohuohumax/logo/refs/heads/main/logos/logo.svg',
         'namespace': 'xiaohuohumax/userscripts/common-right-click-tab',
         'license': 'MIT',

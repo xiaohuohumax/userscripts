@@ -1,5 +1,11 @@
 # right-click-tab
 
+## 1.1.1
+
+### Patch Changes
+
+- 修改脚本名称和描述
+
 ## 1.1.0
 
 ### Minor Changes
