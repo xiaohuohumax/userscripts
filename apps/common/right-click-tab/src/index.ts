@@ -1,4 +1,5 @@
 import { GM_openInTab, GM_registerMenuCommand } from '$'
+import getUrls from 'get-urls'
 import { ID, VERSION } from 'virtual:meta'
 import Store from './store'
 import View from './view'
@@ -12,19 +13,36 @@ const view = new View(store)
 
 console.log(`${ID}(v${VERSION})`)
 
-document.addEventListener('contextmenu', (e) => {
+function tryGetUrl(element: Element): string | null {
+  const selection = window.getSelection()?.toString()
+  if (selection) {
+    const urls = Array.from(getUrls(selection))
+    return urls.length > 0
+      ? urls[0]
+      // : selection
+      : null
+  }
+
+  const link = element.closest('a')
+  return link?.href || null
+}
+
+document.addEventListener('contextmenu', (e: MouseEvent) => {
   if (timer > CLEANED) {
     clearTimeout(timer)
     timer = CLEANED
   }
   else {
-    const element = e.target as HTMLElement
-    const link = element.closest('a')
-    if (link) {
+    const href = tryGetUrl(e.target as Element)?.trim()
+
+    if (href) {
+      if (import.meta.env.DEV) {
+        console.log(`open ${href} in ${store.active ? 'foreground' : 'background'} mode`)
+      }
       e.preventDefault()
       timer = setTimeout(() => {
         timer = CLEANED
-        GM_openInTab(link.href, { active: store.active })
+        GM_openInTab(href, { active: store.active })
       }, THRESHOLD)
     }
   }

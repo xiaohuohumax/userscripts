@@ -1,5 +1,11 @@
 # right-click-tab
 
+## 1.2.0
+
+### Minor Changes
+
+- 右键快速打开链接支持打开鼠标选中文本中的链接
+
 ## 1.1.1
 
 ### Patch Changes
