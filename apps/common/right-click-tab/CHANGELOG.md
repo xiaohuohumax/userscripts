@@ -1,5 +1,11 @@
 # right-click-tab
 
+## 1.2.1
+
+### Patch Changes
+
+- 修改脚本描述
+
 ## 1.2.0
 
 ### Minor Changes
