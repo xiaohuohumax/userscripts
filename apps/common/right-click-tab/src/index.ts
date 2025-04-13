@@ -28,24 +28,38 @@ function tryGetUrl(element: Element): string | null {
 }
 
 document.addEventListener('contextmenu', (e: MouseEvent) => {
+  const href = tryGetUrl(e.target as Element)?.trim()
+
+  if (!href) {
+    return
+  }
+
   if (timer > CLEANED) {
+    // double click
     clearTimeout(timer)
     timer = CLEANED
-  }
-  else {
-    const href = tryGetUrl(e.target as Element)?.trim()
-
-    if (href) {
-      if (import.meta.env.DEV) {
-        console.log(`open ${href} in ${store.active ? 'foreground' : 'background'} mode`)
-      }
+    if (store.trigger === 'double') {
       e.preventDefault()
-      timer = setTimeout(() => {
-        timer = CLEANED
-        GM_openInTab(href, { active: store.active })
-      }, THRESHOLD)
+      GM_openInTab(href, { active: store.active })
     }
+    return
   }
+
+  if (import.meta.env.DEV) {
+    console.log(`open ${href} in ${store.active ? 'foreground' : 'background'} mode`)
+  }
+
+  if (store.trigger === 'single') {
+    e.preventDefault()
+  }
+
+  timer = setTimeout(() => {
+    // single click
+    timer = CLEANED
+    if (store.trigger === 'single') {
+      GM_openInTab(href, { active: store.active })
+    }
+  }, THRESHOLD)
 })
 
-GM_registerMenuCommand('切换超链接打开方式(前台/后台)', view.toggleActive)
+GM_registerMenuCommand('修改配置', view.config)

@@ -12,7 +12,7 @@ export default defineConfig({
       entry: 'src/index.ts',
       build: {
         externalGlobals: {
-          sweetalert: cdn.unpkg('swal', 'dist/sweetalert.min.js'),
+          sweetalert2: cdn.unpkg('Swal', 'dist/sweetalert2.all.min.js'),
         },
       },
       userscript: {

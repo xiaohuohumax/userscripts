@@ -1,5 +1,11 @@
 # right-click-tab
 
+## 1.3.0
+
+### Minor Changes
+
+- 超链接触发方式支持配置
+
 ## 1.2.1
 
 ### Patch Changes

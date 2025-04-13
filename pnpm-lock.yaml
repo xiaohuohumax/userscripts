@@ -88,9 +88,9 @@ importers:
       get-urls:
         specifier: ^12.1.0
         version: 12.1.0
-      sweetalert:
-        specifier: ^2.1.2
-        version: 2.1.2
+      sweetalert2:
+        specifier: ^11.15.9
+        version: 11.15.9
     devDependencies:
       vite-plugin-meta:
         specifier: workspace:^

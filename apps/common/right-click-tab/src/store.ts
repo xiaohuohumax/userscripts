@@ -1,18 +1,24 @@
 import { GM_addValueChangeListener, GM_getValue, GM_setValue } from '$'
 import { ID } from 'virtual:meta'
 
-const LAST_VERSION = 1
-
-export interface Config {
-  version: 1
-  active: boolean
-}
+const LAST_VERSION = 2
 
 interface ConfigV0 {
   version: 0
 }
 
-type UnFormatConfig = ConfigV0 | Config
+interface ConfigV1 {
+  version: 1
+  active: boolean
+}
+
+export interface Config {
+  version: 2
+  active: boolean
+  trigger: 'double' | 'single'
+}
+
+type UnFormatConfig = ConfigV0 | ConfigV1 | Config
 
 interface ConfigChangeListener {
   (config: Config): void
@@ -53,13 +59,14 @@ export default class Store {
     const config: Config = {
       version: LAST_VERSION,
       active: true,
+      trigger: 'single',
     }
     if (!data) {
       return config
     }
     if (data.version === 0) {
       // v0 => v1
-      return config
+      // return config
     }
     // ...
     return Object.assign(config, data)
@@ -71,6 +78,15 @@ export default class Store {
 
   public set active(value: Config['active']) {
     this.config.active = value
+    this.saveConfig()
+  }
+
+  public get trigger() {
+    return this.config.trigger
+  }
+
+  public set trigger(value: Config['trigger']) {
+    this.config.trigger = value
     this.saveConfig()
   }
 }
