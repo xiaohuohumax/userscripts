@@ -1,4 +1,4 @@
-# right-click-tab
+# right-click-copy
 
 ## 1.0.0
 
