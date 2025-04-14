@@ -83,6 +83,16 @@ importers:
         specifier: workspace:^
         version: link:../../../packages/vite-plugin-meta
 
+  apps/common/right-click-copy:
+    dependencies:
+      sweetalert2:
+        specifier: ^11.15.9
+        version: 11.15.9
+    devDependencies:
+      vite-plugin-meta:
+        specifier: workspace:^
+        version: link:../../../packages/vite-plugin-meta
+
   apps/common/right-click-tab:
     dependencies:
       get-urls:
