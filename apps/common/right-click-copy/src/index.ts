@@ -1,7 +1,7 @@
 import { GM_registerMenuCommand, GM_setClipboard } from '$'
 import { ID, VERSION } from 'virtual:meta'
 import Store from './store'
-import View from './view'
+import View, { Toast } from './view'
 
 const THRESHOLD: number = 300
 const CLEANED: number = 0
@@ -13,17 +13,22 @@ const view = new View(store)
 console.log(`${ID}(v${VERSION})`)
 
 function copy(selection?: string) {
-  selection && GM_setClipboard(selection, 'text')
+  selection && GM_setClipboard(selection, 'text', () => {
+    Toast.fire({
+      icon: 'success',
+      title: '复制成功',
+    })
+  })
 }
 
-async function paste(target: HTMLInputElement | HTMLTextAreaElement, isContenteditable: boolean, isInput: boolean) {
+async function paste(target: HTMLElement | HTMLInputElement | HTMLTextAreaElement, isContenteditable: boolean, isInput: boolean): Promise<void> {
   const clipboardContext = await navigator.clipboard.readText()
   if (isContenteditable) {
     const range = window.getSelection()!.getRangeAt(0)
     range.deleteContents()
     range.insertNode(document.createTextNode(clipboardContext))
   }
-  else if (isInput) {
+  else if (isInput && (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) {
     target.value = clipboardContext.trim()
   }
 }
@@ -38,8 +43,9 @@ document.addEventListener('contextmenu', async (e: MouseEvent) => {
   const isInput = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement
 
   const isCopy = !!selection && !isInput
+  const isPaste = isInput || isContenteditable
 
-  if (!((isCopy && store.enableCopy) || ((isInput || isContenteditable) && store.enablePaste))) {
+  if (!((isCopy && store.enableCopy) || (isPaste && store.enablePaste))) {
     return
   }
 
@@ -52,9 +58,9 @@ document.addEventListener('contextmenu', async (e: MouseEvent) => {
       copy(selection)
       return
     }
-    if (store.pasteTrigger === 'double' && isInput) {
+    if (store.pasteTrigger === 'double' && isPaste) {
       e.preventDefault()
-      await paste(target, isContenteditable, isInput)
+      paste(target, isContenteditable, isInput)
       return
     }
     return
@@ -71,7 +77,7 @@ document.addEventListener('contextmenu', async (e: MouseEvent) => {
       copy(selection)
       return
     }
-    if (store.pasteTrigger === 'single' && isInput) {
+    if (store.pasteTrigger === 'single' && isPaste) {
       paste(target, isContenteditable, isInput)
     }
   }, THRESHOLD)
