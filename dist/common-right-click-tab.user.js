@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         🖱右键超链接快速打开新标签页📑（Common Right Click Tab）
 // @namespace    xiaohuohumax/userscripts/common-right-click-tab
-// @version      1.2.1
+// @version      1.3.0
 // @author       xiaohuohumax
 // @description  用户可以通过右键点击【普通链接、鼠标选中带链接的文字】等方式快速打开新标签页。效果类似于【Ctrl+左键】点击链接。
 // @license      MIT
@@ -10,7 +10,7 @@
 // @downloadURL  https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/dist/common-right-click-tab.user.js
 // @updateURL    https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/dist/common-right-click-tab.user.js
 // @match        http*://*/*
-// @require      https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js
+// @require      https://unpkg.com/sweetalert2@11.15.9/dist/sweetalert2.all.min.js
 // @grant        GM_addValueChangeListener
 // @grant        GM_getValue
 // @grant        GM_openInTab
@@ -20,7 +20,7 @@
 // @noframes
 // ==/UserScript==
 
-(function (swal) {
+(function (Swal) {
   'use strict';
 
   var __defProp = Object.defineProperty;
@@ -489,8 +489,8 @@
     return returnValue;
   }
   const ID = "common-right-click-tab";
-  const VERSION = "1.2.1";
-  const LAST_VERSION = 1;
+  const VERSION = "1.3.0";
+  const LAST_VERSION = 2;
   class Store {
     constructor() {
       __publicField(this, "config", null);
@@ -520,14 +520,13 @@
     configFormat(data) {
       const config = {
         version: LAST_VERSION,
-        active: true
+        active: true,
+        trigger: "single"
       };
       if (!data) {
         return config;
       }
-      if (data.version === 0) {
-        return config;
-      }
+      if (data.version === 0) ;
       return Object.assign(config, data);
     }
     get active() {
@@ -537,12 +536,71 @@
       this.config.active = value;
       this.saveConfig();
     }
+    get trigger() {
+      return this.config.trigger;
+    }
+    set trigger(value) {
+      this.config.trigger = value;
+      this.saveConfig();
+    }
   }
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3e3,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
   class View {
     constructor(store2) {
-      __publicField(this, "toggleActive", () => {
-        this.store.active = !this.store.active;
-        swal(`超链接右键已切换为 [${this.store.active ? "前台" : "后台"}] 模式打开`, "", "success");
+      __publicField(this, "config", async () => {
+        const { isConfirmed, value } = await Swal.fire({
+          title: "设置",
+          html: `<p style="margin: 0 !important; text-align: left;">超链接打开模式:</p>
+      <select id="active-mode" class="swal2-select" style="width: 100%; margin: .75rem 0 !important;">
+        <option value="background">后台</option>
+        <option value="foreground">前台</option>
+      </select>
+      <p style="margin: 0 !important; text-align: left;">超链接触发模式:</p>
+      <select id="trigger-mode" class="swal2-select" style="width: 100%; margin: .75rem 0 !important;">
+        <option value="double">右键双击</option>
+        <option value="single">右键单击</option>
+      </select>`,
+          willOpen: (popup) => {
+            const activeMode = popup.querySelector("#active-mode");
+            const triggerMode = popup.querySelector("#trigger-mode");
+            activeMode.value = this.store.active ? "foreground" : "background";
+            triggerMode.value = this.store.trigger;
+          },
+          preConfirm: () => {
+            const activeMode = document.getElementById("active-mode");
+            const triggerMode = document.getElementById("trigger-mode");
+            return {
+              activeMode: activeMode.value,
+              triggerMode: triggerMode.value
+            };
+          },
+          showCancelButton: true,
+          confirmButtonText: "保存",
+          cancelButtonText: "取消"
+        });
+        if (!isConfirmed) {
+          await Toast.fire({
+            icon: "warning",
+            title: "已取消设置"
+          });
+          return;
+        }
+        this.store.active = value.activeMode === "foreground";
+        this.store.trigger = value.triggerMode;
+        await Toast.fire({
+          icon: "success",
+          title: "设置已保存"
+        });
       });
       this.store = store2;
     }
@@ -565,20 +623,29 @@
   }
   document.addEventListener("contextmenu", (e) => {
     var _a;
+    const href = (_a = tryGetUrl(e.target)) == null ? void 0 : _a.trim();
+    if (!href) {
+      return;
+    }
     if (timer > CLEANED) {
       clearTimeout(timer);
       timer = CLEANED;
-    } else {
-      const href = (_a = tryGetUrl(e.target)) == null ? void 0 : _a.trim();
-      if (href) {
+      if (store.trigger === "double") {
         e.preventDefault();
-        timer = setTimeout(() => {
-          timer = CLEANED;
-          _GM_openInTab(href, { active: store.active });
-        }, THRESHOLD);
+        _GM_openInTab(href, { active: store.active });
       }
+      return;
     }
+    if (store.trigger === "single") {
+      e.preventDefault();
+    }
+    timer = setTimeout(() => {
+      timer = CLEANED;
+      if (store.trigger === "single") {
+        _GM_openInTab(href, { active: store.active });
+      }
+    }, THRESHOLD);
   });
-  _GM_registerMenuCommand("切换超链接打开方式(前台/后台)", view.toggleActive);
+  _GM_registerMenuCommand("修改配置", view.config);
 
-})(swal);
+})(Swal);
