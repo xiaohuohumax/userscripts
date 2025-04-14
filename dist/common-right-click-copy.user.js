@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         🖱右键快速复制/粘贴文本（Common Right Click Copy）
 // @namespace    xiaohuohumax/userscripts/common-right-click-copy
-// @version      1.0.0
+// @version      1.1.0
 // @author       xiaohuohumax
 // @description  用户可以通过右键点击选中的文本，快速复制到剪贴板，然后在输入框中右键即可快速粘贴剪贴板的文本（PS：对应复制限制的网站暂不支持）。
 // @license      MIT
@@ -32,7 +32,7 @@
   var _GM_setClipboard = /* @__PURE__ */ (() => typeof GM_setClipboard != "undefined" ? GM_setClipboard : void 0)();
   var _GM_setValue = /* @__PURE__ */ (() => typeof GM_setValue != "undefined" ? GM_setValue : void 0)();
   const ID = "common-right-click-copy";
-  const VERSION = "1.0.0";
+  const VERSION = "1.1.0";
   const LAST_VERSION = 1;
   class Store {
     constructor() {
@@ -191,7 +191,12 @@
   const view = new View(store);
   console.log(`${ID}(v${VERSION})`);
   function copy(selection) {
-    selection && _GM_setClipboard(selection, "text");
+    selection && _GM_setClipboard(selection, "text", () => {
+      Toast.fire({
+        icon: "success",
+        title: "复制成功"
+      });
+    });
   }
   async function paste(target, isContenteditable, isInput) {
     const clipboardContext = await navigator.clipboard.readText();
@@ -199,7 +204,7 @@
       const range = window.getSelection().getRangeAt(0);
       range.deleteContents();
       range.insertNode(document.createTextNode(clipboardContext));
-    } else if (isInput) {
+    } else if (isInput && (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) {
       target.value = clipboardContext.trim();
     }
   }
@@ -213,7 +218,8 @@
     const isContenteditable = target.hasAttribute("contenteditable");
     const isInput = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement;
     const isCopy = !!selection && !isInput;
-    if (!(isCopy && store.enableCopy || (isInput || isContenteditable) && store.enablePaste)) {
+    const isPaste = isInput || isContenteditable;
+    if (!(isCopy && store.enableCopy || isPaste && store.enablePaste)) {
       return;
     }
     if (timer > CLEANED) {
@@ -224,9 +230,9 @@
         copy(selection);
         return;
       }
-      if (store.pasteTrigger === "double" && isInput) {
+      if (store.pasteTrigger === "double" && isPaste) {
         e.preventDefault();
-        await paste(target, isContenteditable, isInput);
+        paste(target, isContenteditable, isInput);
         return;
       }
       return;
@@ -240,7 +246,7 @@
         copy(selection);
         return;
       }
-      if (store.pasteTrigger === "single" && isInput) {
+      if (store.pasteTrigger === "single" && isPaste) {
         paste(target, isContenteditable, isInput);
       }
     }, THRESHOLD);
