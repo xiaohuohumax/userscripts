@@ -1,0 +1,33 @@
+{
+  "name": "common-qr-code",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "图片二维码识别（Common QR Code）-- 右键图片，识别二维码并复制到剪贴板。",
+  "author": {
+    "name": "xiaohuohumax",
+    "url": "https://github.com/xiaohuohumax"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaohuohumax/userscripts.git"
+  },
+  "keywords": [
+    "typescript",
+    "tampermonkey",
+    "common",
+    "qr-code"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --emptyOutDir=false"
+  },
+  "dependencies": {
+    "jsqr": "^1.4.0",
+    "notiflix": "^3.2.8"
+  },
+  "devDependencies": {
+    "vite-plugin-meta": "workspace:^"
+  }
+}

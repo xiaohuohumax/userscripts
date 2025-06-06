@@ -89,13 +89,19 @@
     "antfu",
     "bili",
     "bilibili",
+    "binarize",
+    "binarized",
     "breakline",
     "commitlint",
     "contenteditable",
     "dede",
+    "jsqr",
     "labelledby",
+    "notiflix",
+    "nuintun",
     "onurlchange",
     "prefixs",
+    "qrcode",
     "radash",
     "swal",
     "sweetalert",
@@ -112,6 +118,7 @@
   ],
   "cSpell.ignorePaths": [
     "*.yaml",
-    "*.vscode"
+    "*.vscode",
+    "dist/*.user.js"
   ]
 }
