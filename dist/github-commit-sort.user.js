@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GitHub 仓库文件按提交时间排序📅（GitHub Commit Sort）
 // @namespace    xiaohuohumax/userscripts/github-commit-sort
-// @version      1.1.1
+// @version      1.1.2
 // @author       xiaohuohumax
 // @description  GitHub 仓库无法快速查看最新的变更文件？试试这个 GitHub 仓库文件按提交时间排序的用户脚本吧！
 // @license      MIT
@@ -46,7 +46,7 @@
     return debounced;
   };
   const ID = "github-commit-sort";
-  const VERSION = "1.1.1";
+  const VERSION = "1.1.2";
   var _GM_addValueChangeListener = /* @__PURE__ */ (() => typeof GM_addValueChangeListener != "undefined" ? GM_addValueChangeListener : void 0)();
   var _GM_getValue = /* @__PURE__ */ (() => typeof GM_getValue != "undefined" ? GM_getValue : void 0)();
   var _GM_setValue = /* @__PURE__ */ (() => typeof GM_setValue != "undefined" ? GM_setValue : void 0)();
@@ -91,7 +91,7 @@
   function querySortButtonParent() {
     const table = queryTable();
     const mainTable = table == null ? void 0 : table.querySelector(
-      'body tr[class^="Box-sc-"] > td > div > div:last-child'
+      'body tr[class^="DirectoryContent-module"] > td > div > div:last-child'
     );
     if (mainTable) {
       return { sortButtonParent: mainTable, isMainPage: true };
