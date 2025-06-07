@@ -20,7 +20,6 @@ export async function decodeQrCode(url: string): Promise<string | undefined> {
     GM_xmlhttpRequest({
       method: 'GET',
       url,
-      anonymous: true,
       responseType: 'blob',
       onload: (response) => {
         if (response.status !== 200) {
