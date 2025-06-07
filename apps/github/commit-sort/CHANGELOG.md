@@ -1,5 +1,11 @@
 # github-commit-sort
 
+## 1.1.2
+
+### Patch Changes
+
+- 修复排序图标位置异常
+
 ## 1.1.1
 
 ### Patch Changes

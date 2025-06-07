@@ -22,7 +22,7 @@ function queryTable(): TypeOrEmpty<HTMLTableElement> {
 function querySortButtonParent(): { sortButtonParent: TypeOrEmpty<HTMLDivElement>, isMainPage: boolean } {
   const table = queryTable()
   const mainTable = table?.querySelector<HTMLDivElement>(
-    'body tr[class^="Box-sc-"] > td > div > div:last-child',
+    'body tr[class^="DirectoryContent-module"] > td > div > div:last-child',
   )
   if (mainTable) {
     return { sortButtonParent: mainTable, isMainPage: true }
