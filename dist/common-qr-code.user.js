@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         图片二维码识别（Common QR Code）
 // @namespace    xiaohuohumax/userscripts/common-qr-code
-// @version      1.0.0
+// @version      1.0.1
 // @author       xiaohuohumax
 // @description  右键图片，识别二维码并复制到剪贴板。
 // @license      MIT
@@ -26,7 +26,7 @@
   var _GM_setClipboard = /* @__PURE__ */ (() => typeof GM_setClipboard != "undefined" ? GM_setClipboard : void 0)();
   var _GM_xmlhttpRequest = /* @__PURE__ */ (() => typeof GM_xmlhttpRequest != "undefined" ? GM_xmlhttpRequest : void 0)();
   const ID = "common-qr-code";
-  const VERSION = "1.0.0";
+  const VERSION = "1.0.1";
   async function decodeQrCode(url) {
     return new Promise((resolve, reject) => {
       const image2 = new Image();
@@ -43,7 +43,6 @@
       _GM_xmlhttpRequest({
         method: "GET",
         url,
-        anonymous: true,
         responseType: "blob",
         onload: (response) => {
           if (response.status !== 200) {
