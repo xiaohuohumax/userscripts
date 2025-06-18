@@ -1,5 +1,11 @@
 # bilibili-dynamic-block
 
+## 1.0.3
+
+### Patch Changes
+
+- 修复暗黑模式下统计文字无法看清问题
+
 ## 1.0.2
 
 ### Patch Changes

@@ -83,6 +83,10 @@
   cursor: pointer;
 }
 
-#bilibili-dynamic-block-stat:hover{
+#bilibili-dynamic-block-stat:hover {
   font-weight: 900;
+}
+
+html.bili_dark #bilibili-dynamic-block-stat {
+  color: var(--text1);
 }
