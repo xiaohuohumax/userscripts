@@ -25,6 +25,7 @@ GM_registerMenuCommand('Decode QR Code', () => {
     element.style.borderRadius = '5px'
     element.style.maxHeight = '200px'
     element.style.overflowY = 'auto'
+    element.style.color = 'rgba(0, 0, 0, .65)'
 
     swal({
       icon: 'success',

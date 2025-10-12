@@ -1,5 +1,11 @@
 # common-qr-code
 
+## 1.1.1
+
+### Patch Changes
+
+- 修复识别文字显示时颜色随网站改变的异常
+
 ## 1.1.0
 
 ### Minor Changes
