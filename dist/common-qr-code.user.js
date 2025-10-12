@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         图片二维码识别（Common QR Code）
 // @namespace    xiaohuohumax/userscripts/common-qr-code
-// @version      1.1.0
+// @version      1.1.1
 // @author       xiaohuohumax
 // @description  右键图片，识别二维码并复制到剪贴板。
 // @license      MIT
@@ -1034,7 +1034,7 @@
   var sweetalert_minExports = requireSweetalert_min();
   const swal = /* @__PURE__ */ getDefaultExportFromCjs(sweetalert_minExports);
   const ID = "common-qr-code";
-  const VERSION = "1.1.0";
+  const VERSION = "1.1.1";
   async function decodeQrCode(url) {
     return new Promise((resolve, reject) => {
       const image2 = new Image();
@@ -1081,6 +1081,7 @@
       element.style.borderRadius = "5px";
       element.style.maxHeight = "200px";
       element.style.overflowY = "auto";
+      element.style.color = "rgba(0, 0, 0, .65)";
       swal({
         icon: "success",
         title: "识别成功",
