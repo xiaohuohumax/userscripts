@@ -1,5 +1,11 @@
 # common-qr-code
 
+## 1.2.0
+
+### Minor Changes
+
+- 支持识别图片中的多个二维码
+
 ## 1.1.1
 
 ### Patch Changes
