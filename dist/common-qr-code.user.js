@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         图片二维码识别（Common QR Code）
 // @namespace    xiaohuohumax/userscripts/common-qr-code
-// @version      1.1.1
+// @version      1.2.0
 // @author       xiaohuohumax
 // @description  右键图片，识别二维码并复制到剪贴板。
 // @license      MIT
@@ -1032,20 +1032,38 @@
     return sweetalert_min$1.exports;
   }
   var sweetalert_minExports = requireSweetalert_min();
-  const swal = /* @__PURE__ */ getDefaultExportFromCjs(sweetalert_minExports);
+  const Swal = /* @__PURE__ */ getDefaultExportFromCjs(sweetalert_minExports);
   const ID = "common-qr-code";
-  const VERSION = "1.1.1";
+  const VERSION = "1.2.0";
   async function decodeQrCode(url) {
     return new Promise((resolve, reject) => {
       const image2 = new Image();
       image2.onload = () => {
-        var _a;
+        const results = [];
         const { width, height } = image2;
         const canvas = new OffscreenCanvas(width, height);
         const context = canvas.getContext("2d");
         context.drawImage(image2, 0, 0);
-        const imageData = context.getImageData(0, 0, width, height);
-        resolve((_a = jsQR(imageData.data, width, height)) == null ? void 0 : _a.data.replace(/^\s+|\s+$/g, ""));
+        while (true) {
+          const imageData = context.getImageData(0, 0, width, height);
+          const code = jsQR(imageData.data, width, height);
+          if (!code) {
+            break;
+          }
+          const result = code.data.replace(/^\s+|\s+$/g, "");
+          context.fillStyle = "white";
+          context.beginPath();
+          const { topLeftCorner, topRightCorner, bottomRightCorner, bottomLeftCorner } = code.location;
+          context.moveTo(topLeftCorner.x, topLeftCorner.y);
+          context.lineTo(topRightCorner.x, topRightCorner.y);
+          context.lineTo(bottomRightCorner.x, bottomRightCorner.y);
+          context.lineTo(bottomLeftCorner.x, bottomLeftCorner.y);
+          context.lineTo(topLeftCorner.x, topLeftCorner.y);
+          context.fill();
+          context.closePath();
+          results.push(result);
+        }
+        resolve(results);
       };
       image2.onerror = reject;
       _GM_xmlhttpRequest({
@@ -1069,34 +1087,49 @@
     if (!image) {
       return notiflixNotifyAio.Notify.warning("未选择图片, 请先右键选择图片");
     }
-    decodeQrCode(image.src).then((data) => {
-      if (data === void 0) {
+    decodeQrCode(image.src).then((results) => {
+      if (results.length === 0) {
         return notiflixNotifyAio.Notify.warning("未识别到二维码, 请确认图片是否有效");
       }
+      const isMultiple = results.length > 1;
       const element = document.createElement("div");
-      element.textContent = data;
-      element.style.fontSize = "16px";
-      element.style.padding = "10px";
-      element.style.border = "1px solid #ccc";
-      element.style.borderRadius = "5px";
-      element.style.maxHeight = "200px";
-      element.style.overflowY = "auto";
-      element.style.color = "rgba(0, 0, 0, .65)";
-      swal({
+      for (const [index, result] of results.entries()) {
+        const resultButton = document.createElement("button");
+        resultButton.innerHTML = result;
+        resultButton.style.fontSize = "16px";
+        resultButton.style.maxHeight = "200px";
+        resultButton.style.overflowY = "auto";
+        resultButton.style.width = "100%";
+        resultButton.className = "swal-button swal-button--cancel";
+        if (index > 0) {
+          resultButton.style.marginTop = "10px";
+        }
+        resultButton.dataset.result = result;
+        element.appendChild(resultButton);
+      }
+      element.addEventListener("click", (event) => {
+        if (event.target instanceof HTMLButtonElement && event.target.dataset.result) {
+          _GM_setClipboard(event.target.dataset.result, "text");
+          notiflixNotifyAio.Notify.success("已复制到剪贴板");
+          Swal.close();
+        }
+      });
+      Swal({
         icon: "success",
         title: "识别成功",
+        text: isMultiple ? "识别到多个二维码, 点击文本内容可单独复制" : void 0,
         content: {
           element
         },
         buttons: {
           confirm: {
-            text: "复制到剪贴板",
+            text: isMultiple ? "全部复制到剪贴板" : "复制到剪贴板",
             value: "copy"
           }
         }
       }).then((result) => {
         if (result === "copy") {
-          _GM_setClipboard(data, "text");
+          _GM_setClipboard(results.join("\n"), "text");
           notiflixNotifyAio.Notify.success("已复制到剪贴板");
         }
       });
