@@ -2,7 +2,9 @@ import { GM_xmlhttpRequest } from '$'
 
 import jsQR from 'jsqr'
 
-export async function decodeQrCode(url: string): Promise<string[]> {
+export type ImageElement = HTMLImageElement | HTMLCanvasElement
+
+export async function decodeQrCode(element: ImageElement): Promise<string[]> {
   return new Promise((resolve, reject) => {
     const image = new Image()
 
@@ -42,18 +44,23 @@ export async function decodeQrCode(url: string): Promise<string[]> {
 
     image.onerror = reject
 
-    GM_xmlhttpRequest({
-      method: 'GET',
-      url,
-      responseType: 'blob',
-      onload: (response) => {
-        if (response.status !== 200) {
-          reject(new Error(`Failed to load image: ${response.status} ${response.statusText}`))
-          return
-        }
-        image.src = URL.createObjectURL(response.response)
-      },
-      onerror: reject,
-    })
+    if (element instanceof HTMLImageElement) { // 静态图片
+      GM_xmlhttpRequest({
+        method: 'GET',
+        url: element.src,
+        responseType: 'blob',
+        onload: (response) => {
+          if (response.status !== 200) {
+            reject(new Error(`Failed to load image: ${response.status} ${response.statusText}`))
+            return
+          }
+          image.src = URL.createObjectURL(response.response)
+        },
+        onerror: reject,
+      })
+    }
+    else if (element instanceof HTMLCanvasElement) { // Canvas 图片
+      image.src = element.toDataURL()
+    }
   })
 }

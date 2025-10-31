@@ -1,5 +1,11 @@
 # common-qr-code
 
+## 1.3.0
+
+### Minor Changes
+
+- 支持从 Canvas 中识别二维码
+
 ## 1.2.0
 
 ### Minor Changes

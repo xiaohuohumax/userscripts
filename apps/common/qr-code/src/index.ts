@@ -1,3 +1,4 @@
+import type { ImageElement } from './utils'
 import { GM_registerMenuCommand, GM_setClipboard } from '$'
 import { Notify } from 'notiflix/build/notiflix-notify-aio'
 import Swal from 'sweetalert'
@@ -6,13 +7,14 @@ import { decodeQrCode } from './utils'
 
 console.log(`${ID}(v${VERSION})`)
 
-let image: HTMLImageElement | null = null
+let image: ImageElement | null = null
 
 GM_registerMenuCommand('Decode QR Code', () => {
   if (!image) {
     return Notify.warning('未选择图片, 请先右键选择图片')
   }
-  decodeQrCode(image.src).then((results) => {
+
+  decodeQrCode(image).then((results) => {
     if (results.length === 0) {
       return Notify.warning('未识别到二维码, 请确认图片是否有效')
     }
@@ -68,7 +70,7 @@ GM_registerMenuCommand('Decode QR Code', () => {
 })
 
 document.addEventListener('contextmenu', (event) => {
-  if (event.target instanceof HTMLImageElement) {
+  if (event.target instanceof HTMLImageElement || event.target instanceof HTMLCanvasElement) {
     image = event.target
   }
 })
