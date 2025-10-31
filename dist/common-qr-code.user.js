@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         图片二维码识别（Common QR Code）
 // @namespace    xiaohuohumax/userscripts/common-qr-code
-// @version      1.2.0
+// @version      1.3.0
 // @author       xiaohuohumax
 // @description  右键图片，识别二维码并复制到剪贴板。
 // @license      MIT
@@ -1034,8 +1034,8 @@
   var sweetalert_minExports = requireSweetalert_min();
   const Swal = /* @__PURE__ */ getDefaultExportFromCjs(sweetalert_minExports);
   const ID = "common-qr-code";
-  const VERSION = "1.2.0";
-  async function decodeQrCode(url) {
+  const VERSION = "1.3.0";
+  async function decodeQrCode(element) {
     return new Promise((resolve, reject) => {
       const image2 = new Image();
       image2.onload = () => {
@@ -1066,19 +1066,23 @@
         resolve(results);
       };
       image2.onerror = reject;
-      _GM_xmlhttpRequest({
-        method: "GET",
-        url,
-        responseType: "blob",
-        onload: (response) => {
-          if (response.status !== 200) {
-            reject(new Error(`Failed to load image: ${response.status} ${response.statusText}`));
-            return;
-          }
-          image2.src = URL.createObjectURL(response.response);
-        },
-        onerror: reject
-      });
+      if (element instanceof HTMLImageElement) {
+        _GM_xmlhttpRequest({
+          method: "GET",
+          url: element.src,
+          responseType: "blob",
+          onload: (response) => {
+            if (response.status !== 200) {
+              reject(new Error(`Failed to load image: ${response.status} ${response.statusText}`));
+              return;
+            }
+            image2.src = URL.createObjectURL(response.response);
+          },
+          onerror: reject
+        });
+      } else if (element instanceof HTMLCanvasElement) {
+        image2.src = element.toDataURL();
+      }
     });
   }
   console.log(`${ID}(v${VERSION})`);
@@ -1087,7 +1091,7 @@
     if (!image) {
       return notiflixNotifyAio.Notify.warning("未选择图片, 请先右键选择图片");
     }
-    decodeQrCode(image.src).then((results) => {
+    decodeQrCode(image).then((results) => {
       if (results.length === 0) {
         return notiflixNotifyAio.Notify.warning("未识别到二维码, 请确认图片是否有效");
       }
@@ -1139,7 +1143,7 @@
     }).finally(() => image = null);
   });
   document.addEventListener("contextmenu", (event) => {
-    if (event.target instanceof HTMLImageElement) {
+    if (event.target instanceof HTMLImageElement || event.target instanceof HTMLCanvasElement) {
       image = event.target;
     }
   });
