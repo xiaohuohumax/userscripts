@@ -64,3 +64,7 @@ export async function decodeQrCode(element: ImageElement): Promise<string[]> {
     }
   })
 }
+
+export function isUrl(url: string): boolean {
+  return /^https?:\/\//.test(url.trimStart())
+}

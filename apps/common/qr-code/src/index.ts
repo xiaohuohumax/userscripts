@@ -3,7 +3,7 @@ import { GM_registerMenuCommand, GM_setClipboard } from '$'
 import { Notify } from 'notiflix/build/notiflix-notify-aio'
 import Swal from 'sweetalert'
 import { ID, VERSION } from 'virtual:meta'
-import { decodeQrCode } from './utils'
+import { decodeQrCode, isUrl } from './utils'
 
 console.log(`${ID}(v${VERSION})`)
 
@@ -33,7 +33,27 @@ GM_registerMenuCommand('Decode QR Code', () => {
         resultButton.style.marginTop = '10px'
       }
       resultButton.dataset.result = result
-      element.appendChild(resultButton)
+      if (isUrl(result)) {
+        const div = document.createElement('div')
+        div.style.display = 'flex'
+        const a = document.createElement('a')
+        a.href = result
+        a.target = '_blank'
+        a.textContent = '跳转'
+        a.style.marginLeft = '10px'
+        a.style.fontSize = '14px'
+        a.style.flexShrink = '0'
+        a.style.display = 'inline-flex'
+        a.style.alignItems = 'center'
+        a.style.justifyContent = 'center'
+        a.className = 'swal-button swal-button--cancel'
+        div.appendChild(resultButton)
+        div.appendChild(a)
+        element.appendChild(div)
+      }
+      else {
+        element.appendChild(resultButton)
+      }
     }
 
     element.addEventListener('click', (event) => {

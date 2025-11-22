@@ -1085,6 +1085,9 @@
       }
     });
   }
+  function isUrl(url) {
+    return /^https?:\/\//.test(url.trimStart());
+  }
   console.log(`${ID}(v${VERSION})`);
   let image = null;
   _GM_registerMenuCommand("Decode QR Code", () => {
@@ -1109,7 +1112,18 @@
           resultButton.style.marginTop = "10px";
         }
         resultButton.dataset.result = result;
-        element.appendChild(resultButton);
+        if (isUrl(result)) {
+          const div = document.createElement("div");
+          const a = document.createElement("a");
+          a.href = result;
+          a.target = "_blank";
+          a.textContent = "跳转";
+          div.appendChild(resultButton);
+          div.appendChild(a);
+          resultButton.appendChild(div);
+        } else {
+          element.appendChild(resultButton);
+        }
       }
       element.addEventListener("click", (event) => {
         if (event.target instanceof HTMLButtonElement && event.target.dataset.result) {

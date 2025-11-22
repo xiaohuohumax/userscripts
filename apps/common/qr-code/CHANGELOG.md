@@ -1,5 +1,11 @@
 # common-qr-code
 
+## 1.4.0
+
+### Minor Changes
+
+- 链接支持快速跳转
+
 ## 1.3.0
 
 ### Minor Changes
