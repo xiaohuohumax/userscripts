@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         图片二维码识别（Common QR Code）
 // @namespace    xiaohuohumax/userscripts/common-qr-code
-// @version      1.3.0
+// @version      1.4.0
 // @author       xiaohuohumax
 // @description  右键图片，识别二维码并复制到剪贴板。
 // @license      MIT
@@ -1034,7 +1034,7 @@
   var sweetalert_minExports = requireSweetalert_min();
   const Swal = /* @__PURE__ */ getDefaultExportFromCjs(sweetalert_minExports);
   const ID = "common-qr-code";
-  const VERSION = "1.3.0";
+  const VERSION = "1.4.0";
   async function decodeQrCode(element) {
     return new Promise((resolve, reject) => {
       const image2 = new Image();
@@ -1114,13 +1114,21 @@
         resultButton.dataset.result = result;
         if (isUrl(result)) {
           const div = document.createElement("div");
+          div.style.display = "flex";
           const a = document.createElement("a");
           a.href = result;
           a.target = "_blank";
           a.textContent = "跳转";
+          a.style.marginLeft = "10px";
+          a.style.fontSize = "14px";
+          a.style.flexShrink = "0";
+          a.style.display = "inline-flex";
+          a.style.alignItems = "center";
+          a.style.justifyContent = "center";
+          a.className = "swal-button swal-button--cancel";
           div.appendChild(resultButton);
           div.appendChild(a);
-          resultButton.appendChild(div);
+          element.appendChild(div);
         } else {
           element.appendChild(resultButton);
         }
