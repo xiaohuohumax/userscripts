@@ -17,8 +17,8 @@ export default defineConfig({
         },
       },
       userscript: {
-        'name': '图片二维码识别（Common QR Code）',
-        'description': '右键图片，识别二维码并复制到剪贴板。',
+        'name': '图片二维码识别/生成工具（Common QR Code）',
+        'description': '右键图片，识别二维码并复制到剪贴板。右键文字，生成二维码并展示。',
         'icon': 'https://raw.githubusercontent.com/xiaohuohumax/logo/refs/heads/main/logos/logo.svg',
         'namespace': 'xiaohuohumax/userscripts/common-qr-code',
         'license': 'MIT',

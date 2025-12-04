@@ -1,15 +1,18 @@
 import type { ImageElement } from './utils'
-import { GM_registerMenuCommand, GM_setClipboard } from '$'
+import { GM_download, GM_registerMenuCommand, GM_setClipboard } from '$'
 import { Notify } from 'notiflix/build/notiflix-notify-aio'
+import QRCode from 'qrcode'
 import Swal from 'sweetalert'
 import { ID, VERSION } from 'virtual:meta'
+
 import { decodeQrCode, isUrl } from './utils'
 
 console.log(`${ID}(v${VERSION})`)
 
 let image: ImageElement | null = null
+let selection: string | null = null
 
-GM_registerMenuCommand('Decode QR Code', () => {
+function handleDecodeQrCodeMenuClick() {
   if (!image) {
     return Notify.warning('未选择图片, 请先右键选择图片')
   }
@@ -87,10 +90,46 @@ GM_registerMenuCommand('Decode QR Code', () => {
     Notify.failure('识别失败, 请检查图片是否有效')
     console.error(error)
   }).finally(() => (image = null))
-})
+}
+
+async function handleEncodeQrCodeMenuClick() {
+  if (selection === null) {
+    return Notify.warning('未选择文字, 请先右键选择文字')
+  }
+
+  const dataUrl = await QRCode.toDataURL(selection)
+  const element = document.createElement('img')
+  element.src = dataUrl
+  element.style.margin = '0 auto'
+
+  Swal({
+    icon: 'success',
+    title: '生成二维码成功',
+    content: {
+      element,
+    },
+    buttons: {
+      confirm: {
+        text: '保存到本地',
+        value: 'save',
+      },
+    },
+  }).then((result) => {
+    if (result === 'save') {
+      GM_download({ name: 'qrcode.png', url: dataUrl, saveAs: true })
+    }
+  }).finally(() => (selection = null))
+}
+
+GM_registerMenuCommand('Decode QR Code', handleDecodeQrCodeMenuClick)
+GM_registerMenuCommand('Encode QR Code', handleEncodeQrCodeMenuClick)
 
 document.addEventListener('contextmenu', (event) => {
   if (event.target instanceof HTMLImageElement || event.target instanceof HTMLCanvasElement) {
     image = event.target
   }
+})
+
+document.addEventListener('selectionchange', () => {
+  selection = document.getSelection()?.toString() || null
 })

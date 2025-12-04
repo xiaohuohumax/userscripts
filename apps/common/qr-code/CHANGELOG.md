@@ -1,5 +1,11 @@
 # common-qr-code
 
+## 1.5.0
+
+### Minor Changes
+
+- 新增文字生成二维码功能
+
 ## 1.4.0
 
 ### Minor Changes

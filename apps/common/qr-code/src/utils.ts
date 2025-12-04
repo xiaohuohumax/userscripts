@@ -1,5 +1,4 @@
 import { GM_xmlhttpRequest } from '$'
-
 import jsQR from 'jsqr'
 
 export type ImageElement = HTMLImageElement | HTMLCanvasElement
