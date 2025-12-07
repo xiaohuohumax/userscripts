@@ -109,6 +109,12 @@ importers:
         specifier: workspace:^
         version: link:../../../packages/vite-plugin-meta
 
+  apps/github/dashboard-auto-more:
+    devDependencies:
+      vite-plugin-meta:
+        specifier: workspace:^
+        version: link:../../../packages/vite-plugin-meta
+
   packages/vite-plugin-meta:
     dependencies:
       local-pkg:
