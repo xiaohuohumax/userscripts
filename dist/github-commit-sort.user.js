@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         GitHub 仓库文件按提交时间排序📅（GitHub Commit Sort）
+// @name         GitHub 仓库文件按提交时间排序（GitHub Commit Sort）
 // @namespace    xiaohuohumax/userscripts/github-commit-sort
 // @version      1.1.2
 // @author       xiaohuohumax

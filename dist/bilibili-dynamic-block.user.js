@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Bilibili 动态卡片拦截♻（Bilibili Dynamic Block）
+// @name         Bilibili 动态卡片拦截（Bilibili Dynamic Block）
 // @namespace    xiaohuohumax/userscripts/bilibili-dynamic-block
 // @version      1.0.3
 // @author       xiaohuohumax

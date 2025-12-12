@@ -1,9 +1,9 @@
 {
   "name": "common-right-click-copy",
   "type": "module",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
-  "description": "🖱右键快速复制/粘贴文本（Common Right Click Copy）-- 用户可以通过右键点击选中的文本，快速复制到剪贴板，然后在输入框中右键即可快速粘贴剪贴板的文本（PS：对应复制限制的网站暂不支持）。",
+  "description": "右键快速复制/粘贴文本（Common Right Click Copy）-- 用户可以通过右键点击选中的文本，快速复制到剪贴板，然后在输入框中右键即可快速粘贴剪贴板的文本（PS：对应复制限制的网站暂不支持）。",
   "author": {
     "name": "xiaohuohumax",
     "url": "https://github.com/xiaohuohumax"

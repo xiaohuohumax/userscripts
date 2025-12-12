@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         🖱右键超链接快速打开新标签页📑（Common Right Click Tab）
+// @name         右键超链接快速打开新标签页（Common Right Click Tab）
 // @namespace    xiaohuohumax/userscripts/common-right-click-tab
 // @version      1.3.0
 // @author       xiaohuohumax

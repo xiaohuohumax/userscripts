@@ -1,5 +1,11 @@
 # github-commit-sort
 
+## 1.1.3
+
+### Patch Changes
+
+- 修改脚本名称
+
 ## 1.1.2
 
 ### Patch Changes

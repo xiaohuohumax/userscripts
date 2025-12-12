@@ -1,9 +1,9 @@
 {
   "name": "common-right-click-tab",
   "type": "module",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "private": true,
-  "description": "🖱右键超链接快速打开新标签页📑（Common Right Click Tab）-- 用户可以通过右键点击【普通链接、鼠标选中带链接的文字】等方式快速打开新标签页。效果类似于【Ctrl+左键】点击链接效果相同。",
+  "description": "右键超链接快速打开新标签页（Common Right Click Tab）-- 用户可以通过右键点击【普通链接、鼠标选中带链接的文字】等方式快速打开新标签页。效果类似于【Ctrl+左键】点击链接效果相同。",
   "author": {
     "name": "xiaohuohumax",
     "url": "https://github.com/xiaohuohumax"

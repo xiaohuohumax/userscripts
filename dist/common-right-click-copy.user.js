@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         🖱右键快速复制/粘贴文本（Common Right Click Copy）
+// @name         右键快速复制/粘贴文本（Common Right Click Copy）
 // @namespace    xiaohuohumax/userscripts/common-right-click-copy
 // @version      1.1.0
 // @author       xiaohuohumax

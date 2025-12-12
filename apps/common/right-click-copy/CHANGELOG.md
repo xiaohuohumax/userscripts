@@ -1,5 +1,11 @@
 # right-click-copy
 
+## 1.1.1
+
+### Patch Changes
+
+- 修改脚本名称
+
 ## 1.1.0
 
 ### Minor Changes
