@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Downloader 资源下载器（下载资源、Zip 压缩、下载到本地）
 // @namespace    xiaohuohumax/userscripts/downloader
-// @version      1.0.2
+// @version      1.1.0
 // @author       xiaohuohumax
 // @description  Downloader -- 资源下载器（下载资源、Zip 压缩、下载到本地）
 // ==/UserScript==
@@ -6627,9 +6627,9 @@ var __privateWrapper = (obj, member, setter, getter) => ({
   async function downloader2(options) {
     const writer = new ZipWriter(new BlobWriter("application/zip"));
     const limit = pLimit(options.concurrency || 10);
-    await Promise.all(options.resources.map((resource, index) => limit(() => {
+    await Promise.all(options.resources.map((resource, index) => limit(async () => {
       var _a;
-      (_a = options.onProgress) == null ? void 0 : _a.call(options, index);
+      await ((_a = options.onProgress) == null ? void 0 : _a.call(options, index));
       return writer.add(resource.name, new HttpReader(resource.url));
     })));
     const blob = await writer.close();
