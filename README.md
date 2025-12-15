@@ -15,3 +15,9 @@
 | [Common Right Click Tab](./apps/common/right-click-tab/README.md)         | 右键超链接快速打开新标签页    | [🐒Greasy Fork](https://greasyfork.org/zh-CN/scripts/528494-common-right-click-tab) \| [🐱Script Cat](https://scriptcat.org/zh-CN/script-show-page/2869) |
 | [Common Right Click Copy](./apps/common/right-click-copy/README.md)       | 右键快速复制/粘贴文本         | [🐒Greasy Fork](https://greasyfork.org/zh-CN/scripts/532794) \| [🐱Script Cat](https://scriptcat.org/zh-CN/script-show-page/3186)                        |
 | [Common QR Code](./apps/common/qr-code/README.md)                         | 图片二维码识别/生成工具       | [🐒Greasy Fork](https://greasyfork.org/zh-CN/scripts/538539) \| [🐱Script Cat](https://scriptcat.org/zh-CN/script-show-page/3559)                        |
+
+## 📦 封装工具
+
+| 名称                                           | 功能                                         | 使用                                                             |
+| ---------------------------------------------- | -------------------------------------------- | ---------------------------------------------------------------- |
+| [downloader](./apps/libs/downloader/README.md) | 资源下载器（下载资源、Zip 压缩、下载到本地） | [🐱Script Cat](https://scriptcat.org/zh-CN/script-show-page/4893) |

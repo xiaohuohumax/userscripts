@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bilibili 动态卡片拦截（Bilibili Dynamic Block）
 // @namespace    xiaohuohumax/userscripts/bilibili-dynamic-block
-// @version      1.0.3
+// @version      1.0.4
 // @author       xiaohuohumax
 // @description  此脚本可以依据规则拦截 Bilibili 动态卡片。
 // @license      MIT
@@ -56,7 +56,7 @@
     return debounced;
   };
   const ID = "bilibili-dynamic-block";
-  const VERSION = "1.0.3";
+  const VERSION = "1.0.4";
   const LAST_VERSION = 1;
   class Store {
     constructor() {

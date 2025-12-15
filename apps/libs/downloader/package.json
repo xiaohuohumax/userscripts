@@ -1,0 +1,31 @@
+{
+  "name": "downloader",
+  "type": "module",
+  "version": "1.0.1",
+  "private": true,
+  "description": "资源下载器（下载资源、Zip 压缩、下载到本地）",
+  "author": {
+    "name": "xiaohuohumax",
+    "url": "https://github.com/xiaohuohumax"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaohuohumax/userscripts.git"
+  },
+  "keywords": [
+    "typescript",
+    "tampermonkey",
+    "downloader"
+  ],
+  "scripts": {
+    "build": "vite build --emptyOutDir=false"
+  },
+  "dependencies": {
+    "@zip.js/zip.js": "^2.8.11",
+    "p-limit": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/tampermonkey": "^5.0.5"
+  }
+}

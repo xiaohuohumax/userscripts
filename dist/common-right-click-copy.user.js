@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         右键快速复制/粘贴文本（Common Right Click Copy）
 // @namespace    xiaohuohumax/userscripts/common-right-click-copy
-// @version      1.1.0
+// @version      1.1.1
 // @author       xiaohuohumax
 // @description  用户可以通过右键点击选中的文本，快速复制到剪贴板，然后在输入框中右键即可快速粘贴剪贴板的文本（PS：对应复制限制的网站暂不支持）。
 // @license      MIT
@@ -32,7 +32,7 @@
   var _GM_setClipboard = /* @__PURE__ */ (() => typeof GM_setClipboard != "undefined" ? GM_setClipboard : void 0)();
   var _GM_setValue = /* @__PURE__ */ (() => typeof GM_setValue != "undefined" ? GM_setValue : void 0)();
   const ID = "common-right-click-copy";
-  const VERSION = "1.1.0";
+  const VERSION = "1.1.1";
   const LAST_VERSION = 1;
   class Store {
     constructor() {
