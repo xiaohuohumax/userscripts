@@ -127,6 +127,9 @@ importers:
       '@types/tampermonkey':
         specifier: ^5.0.5
         version: 5.0.5
+      vite-plugin-banner:
+        specifier: ^0.8.1
+        version: 0.8.1
 
   packages/vite-plugin-meta:
     dependencies:
@@ -2917,6 +2920,9 @@ packages:
 
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
+
+  vite-plugin-banner@0.8.1:
+    resolution: {integrity: sha512-0+gGguHk3MH0HvzMSOCJC6fGgH4+jtY9KlKVZh+hwwE+PBkGVzY8xe657JL74vEgbeUJD37XjVqTrmve8XvZBQ==}
 
   vite-plugin-monkey@5.0.3:
     resolution: {integrity: sha512-GCU+x4MWow4jxapSmyXeACVeRxXt4uYynsqJ5l6UHWg8pfh22LbliWoL44yF92PL1D9PslwM4qT83zg0WeoKcQ==}
@@ -6099,6 +6105,8 @@ snapshots:
     dependencies:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
+
+  vite-plugin-banner@0.8.1: {}
 
   vite-plugin-monkey@5.0.3(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(yaml@2.6.0)):
     dependencies:

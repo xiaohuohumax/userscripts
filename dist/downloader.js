@@ -1,3 +1,14 @@
+// ==UserScript==
+// @name         Downloader 资源下载器（下载资源、Zip 压缩、下载到本地）
+// @namespace    xiaohuohumax/userscripts/downloader
+// @version      1.0.1
+// @author       xiaohuohumax
+// @description  资源下载器（下载资源、Zip 压缩、下载到本地）
+// @license      MIT
+// @icon         https://raw.githubusercontent.com/xiaohuohumax/logo/refs/heads/main/logos/logo.svg
+// @source       https://github.com/xiaohuohumax/userscripts.git
+// ==/UserScript==
+
 var downloader = function() {
   "use strict";var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
