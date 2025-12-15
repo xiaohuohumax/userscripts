@@ -1,5 +1,11 @@
 # downloader
 
+## 1.0.2
+
+### Patch Changes
+
+- 删除多余元数据
+
 ## 1.0.1
 
 ### Patch Changes

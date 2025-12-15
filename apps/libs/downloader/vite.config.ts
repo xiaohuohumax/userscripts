@@ -11,9 +11,6 @@ export default defineConfig({
 // @version      ${version}
 // @author       ${author.name}
 // @description  ${description}
-// @license      MIT
-// @icon         https://raw.githubusercontent.com/xiaohuohumax/logo/refs/heads/main/logos/logo.svg
-// @source       https://github.com/xiaohuohumax/userscripts.git
 // ==/UserScript==
 `,
       verify: false,
