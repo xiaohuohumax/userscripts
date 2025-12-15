@@ -1,5 +1,11 @@
 # downloader
 
+## 1.1.0
+
+### Minor Changes
+
+- 进度回调支持异步
+
 ## 1.0.2
 
 ### Patch Changes

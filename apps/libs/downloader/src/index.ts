@@ -10,14 +10,14 @@ export interface Options {
   filename: string
   resources: Resource[]
   concurrency?: number
-  onProgress?: (index: number) => void
+  onProgress?: (index: number) => Promise<void>
 }
 
 export default async function downloader(options: Options): Promise<void> {
   const writer = new ZipWriter(new BlobWriter('application/zip'))
   const limit = pLimit(options.concurrency || 10)
-  await Promise.all(options.resources.map((resource, index) => limit(() => {
-    options.onProgress?.(index)
+  await Promise.all(options.resources.map((resource, index) => limit(async () => {
+    await options.onProgress?.(index)
     return writer.add(resource.name, new HttpReader(resource.url))
   })))
   const blob = await writer.close()
