@@ -17,24 +17,22 @@
 
 ## 📖 使用方式
 
-1. 添加 `// @require https://***/downloader.js` 库引用
+1. 添加 `// @require https://**/downloader.js?sha384-*` 库引用
 2. 添加 `// @grant GM_download` 下载权限
 3. 使用 `downloader` 方法下载资源
 
 ```typescript
 // ==UserScript==
-// ***
-// @require      https://***/downloader.js?sha384-***
+// @require      https://**/downloader.js?sha384-*
 // @grant        GM_download
 // ==/UserScript==
 
 (async () => {
   'use strict'
-  // 异步调用
   await downloader({
     filename: 'index.zip', // 文件名
     resources: [ // 资源列表
-      { name: 'index.txt', url: location.href },
+      { name: 'index.html', url: location.href },
     ],
     concurrency: 10, // 并发数
     onProgress(index) { // 下载进度回调
