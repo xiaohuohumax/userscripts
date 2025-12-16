@@ -1,5 +1,11 @@
 # downloader
 
+## 1.2.0
+
+### Minor Changes
+
+- 支持直接返回压缩包 Blob 对象
+
 ## 1.1.0
 
 ### Minor Changes

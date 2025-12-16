@@ -6624,17 +6624,41 @@ var __privateWrapper = (obj, member, setter, getter) => ({
       throw new TypeError("Expected `concurrency` to be a number from 1 and up");
     }
   }
+  function isBlobResource(resource) {
+    return resource.blob instanceof Blob;
+  }
+  function isSaveOptions(options) {
+    return "filename" in options;
+  }
   async function downloader2(options) {
     const writer = new ZipWriter(new BlobWriter("application/zip"));
     const limit = pLimit(options.concurrency || 10);
     await Promise.all(options.resources.map((resource, index) => limit(async () => {
       var _a;
       await ((_a = options.onProgress) == null ? void 0 : _a.call(options, index));
-      return writer.add(resource.name, new HttpReader(resource.url));
+      const reader = isBlobResource(resource) ? new BlobReader(resource.blob) : new HttpReader(resource.url);
+      return writer.add(resource.name, reader);
     })));
     const blob = await writer.close();
-    const url = URL.createObjectURL(blob);
-    GM_download(url, options.filename);
+    if (!isSaveOptions(options)) {
+      return blob;
+    }
+    GM_download(URL.createObjectURL(blob), options.filename);
   }
+  (async () => {
+    await downloader2({
+      resources: [
+        { name: "index.html", url: location.href },
+        {
+          name: "hello.txt",
+          blob: new Blob(["hello world"], { type: "text/plain" })
+        }
+      ],
+      concurrency: 10,
+      async onProgress(index) {
+        console.log(`正在下载第 ${index + 1} 个资源`);
+      }
+    });
+  })();
   return downloader2;
 }();
