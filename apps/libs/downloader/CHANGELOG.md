@@ -1,5 +1,11 @@
 # downloader
 
+## 1.2.1
+
+### Patch Changes
+
+- 更新说明文档和授权
+
 ## 1.2.0
 
 ### Minor Changes

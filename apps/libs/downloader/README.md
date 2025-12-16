@@ -21,7 +21,7 @@
 
 ```typescript
 // ==UserScript==
-// @require      https://**/downloader.js?sha384-*
+// @require      https://**/downloader.js?*
 // @grant        GM_download
 // ==/UserScript==
 ```

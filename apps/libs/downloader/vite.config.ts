@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import banner from 'vite-plugin-banner'
-import { author, description, version } from './package.json'
+import { author, description, license, version } from './package.json'
 
 export default defineConfig({
   plugins: [
@@ -11,6 +11,7 @@ export default defineConfig({
 // @version      ${version}
 // @author       ${author.name}
 // @description  ${description}
+// @license      ${license}
 // ==/UserScript==
 `,
       verify: false,
