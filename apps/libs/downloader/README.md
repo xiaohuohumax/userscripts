@@ -20,10 +20,8 @@
 ### ✍ 添加元数据
 
 ```typescript
-// ==UserScript==
 // @require      https://**/downloader.js?*
 // @grant        GM_download
-// ==/UserScript==
 ```
 
 ### 📥 参数说明

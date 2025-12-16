@@ -1,0 +1,31 @@
+{
+  "name": "xpath-selector",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "XPath Selector -- 一个 XPath 选择器库，快速节点获取数据",
+  "author": {
+    "name": "xiaohuohumax",
+    "url": "https://github.com/xiaohuohumax"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaohuohumax/userscripts.git"
+  },
+  "keywords": [
+    "typescript",
+    "tampermonkey",
+    "xpath",
+    "selector"
+  ],
+  "scripts": {
+    "build": "vite build --emptyOutDir=false"
+  },
+  "dependencies": {
+    "fontoxpath": "^3.33.2"
+  },
+  "devDependencies": {
+    "vite-plugin-banner": "^0.8.1"
+  }
+}

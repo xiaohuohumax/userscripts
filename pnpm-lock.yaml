@@ -131,6 +131,16 @@ importers:
         specifier: ^0.8.1
         version: 0.8.1
 
+  apps/libs/xpath-selector:
+    dependencies:
+      fontoxpath:
+        specifier: ^3.33.2
+        version: 3.33.2
+    devDependencies:
+      vite-plugin-banner:
+        specifier: ^0.8.1
+        version: 0.8.1
+
   packages/vite-plugin-meta:
     dependencies:
       local-pkg:
@@ -1635,6 +1645,9 @@ packages:
   flatted@3.3.1:
     resolution: {integrity: sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==}
 
+  fontoxpath@3.33.2:
+    resolution: {integrity: sha512-MVtx/RYKiF91uDzcWsNmhKP4suRI+VLbR8ppB9Q1h9rhC0I48TgPh0U7JFGKAxFH70aJYr3/m3zBBKfATO52hQ==}
+
   foreground-child@3.3.0:
     resolution: {integrity: sha512-Ld2g8rrAyMYFXBhEqMz8ZAHBi4J4uS1i/CxGMDnjyFWddMXLVcDp051DZfu+t7+ab7Wv6SMqpWmyFIj5UbfFvg==}
     engines: {node: '>=14'}
@@ -2474,6 +2487,9 @@ packages:
   promise-polyfill@6.1.0:
     resolution: {integrity: sha512-g0LWaH0gFsxovsU7R5LrrhHhWAWiHRnh1GPrhXnPgYsDkIqjRYUYSZEsej/wtleDrz5xVSIDbeKfidztp2XHFQ==}
 
+  prsc@4.0.0:
+    resolution: {integrity: sha512-OmXQ2v76RlXNx/gqv7+oB6jyKnudJ/rsMfAIVexhbDFxXAJPoWKMxJkZU2ohlu4miCiSQCG+horf2DV4/kNc1Q==}
+
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
@@ -3005,6 +3021,9 @@ packages:
     engines: {node: '>= 8'}
     hasBin: true
 
+  whynot@5.0.0:
+    resolution: {integrity: sha512-cGGfDPYYqoHoMWqXVc3G+N74u1FhFhrBa+pOO906b9ktRc/JFUdwroTkfPqjKzyoCLVcKr6yy6bYIcWT7jTg2A==}
+
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
     engines: {node: '>=0.10.0'}
@@ -3027,6 +3046,9 @@ packages:
   xml-name-validator@4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
     engines: {node: '>=12'}
+
+  xspattern@3.1.0:
+    resolution: {integrity: sha512-rxtOX8ORJizRqswIdZ72G3thKrHd0Q+TvyUCMByc5VdjDz1nkuZKfPXM3xGdrGi0fwEy+DDJN7DqtAZ06Re4bA==}
 
   y18n@4.0.3:
     resolution: {integrity: sha512-JKhqTOwSrqNA1NY5lSztJ1GrBiUodLMmIZuLiDaMRJ+itFd+ABVE8XBjOvIWL+rSqNDC74LCSFmlb/U4UZ4hJQ==}
@@ -4741,6 +4763,11 @@ snapshots:
 
   flatted@3.3.1: {}
 
+  fontoxpath@3.33.2:
+    dependencies:
+      prsc: 4.0.0
+      xspattern: 3.1.0
+
   foreground-child@3.3.0:
     dependencies:
       cross-spawn: 7.0.6
@@ -5680,6 +5707,8 @@ snapshots:
 
   promise-polyfill@6.1.0: {}
 
+  prsc@4.0.0: {}
+
   punycode@2.3.1: {}
 
   qrcode@1.5.4:
@@ -6175,6 +6204,8 @@ snapshots:
     dependencies:
       isexe: 2.0.0
 
+  whynot@5.0.0: {}
+
   word-wrap@1.2.5: {}
 
   wrap-ansi@6.2.0:
@@ -6198,6 +6229,10 @@ snapshots:
   wrappy@1.0.2: {}
 
   xml-name-validator@4.0.0: {}
+
+  xspattern@3.1.0:
+    dependencies:
+      whynot: 5.0.0
 
   y18n@4.0.3: {}
 
