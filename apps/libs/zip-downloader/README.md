@@ -1,14 +1,14 @@
-# Downloader
+# Zip Downloader
 
 **资源下载器（下载资源、Zip 压缩、下载到本地）**
 
-<a href="https://github.com/xiaohuohumax/userscripts/tree/main/apps/libs/downloader">
+<a href="https://github.com/xiaohuohumax/userscripts/tree/main/apps/libs/zip-downloader">
   <img src="https://img.shields.io/badge/GITHUB-项目地址-brightgreen?style=for-the-badge&logo=github" alt="项目地址" />
 </a>
 <a href="https://github.com/xiaohuohumax/userscripts/blob/main/LICENSE">
   <img src="https://img.shields.io/badge/MIT-开源协议-orange?style=for-the-badge&logo=github" alt="开源协议" />
 </a>
-<a href="https://github.com/xiaohuohumax/userscripts/blob/main/apps/libs/downloader/CHANGELOG.md">
+<a href="https://github.com/xiaohuohumax/userscripts/blob/main/apps/libs/zip-downloader/CHANGELOG.md">
   <img src="https://img.shields.io/badge/CHANGELOG-更新日志-blue?style=for-the-badge&logo=github" alt="更新日志" />
 </a>
 <a href="https://github.com/xiaohuohumax/userscripts/issues">
@@ -20,7 +20,7 @@
 ### ✍ 添加元数据
 
 ```typescript
-// @require      https://**/downloader.js?*
+// @require      https://**/zip-downloader.js?*
 // @grant        GM_download
 ```
 
@@ -48,7 +48,7 @@
 **下载，压缩，并保存到本地**
 
 ```typescript
-await downloader({
+await zipDownloader({
   filename: 'index.zip',
   resources: [
     { name: 'index.html', url: location.href },
@@ -67,7 +67,7 @@ await downloader({
 **仅下载和压缩**
 
 ```typescript
-const blob = await downloader({
+const blob = await zipDownloader({
   resources: [
     { name: 'index.html', url: location.href },
     {

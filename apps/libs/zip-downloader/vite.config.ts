@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [
     banner({
       content: `// ==UserScript==
-// @name         Downloader 资源下载器（下载资源、Zip 压缩、下载到本地）
-// @namespace    xiaohuohumax/userscripts/downloader
+// @name         Zip Downloader 资源下载器（下载资源、Zip 压缩、下载到本地）
+// @namespace    xiaohuohumax/userscripts/zip-downloader
 // @version      ${version}
 // @author       ${author.name}
 // @description  ${description}
@@ -23,8 +23,8 @@ export default defineConfig({
     lib: {
       entry: 'src/index.ts',
       formats: ['iife'],
-      fileName: () => 'downloader.js',
-      name: 'downloader',
+      fileName: () => 'zip-downloader.js',
+      name: 'zipDownloader',
     },
   },
 })

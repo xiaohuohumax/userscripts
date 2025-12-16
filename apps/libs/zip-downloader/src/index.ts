@@ -35,9 +35,9 @@ export interface ZipOptions extends OptionsBase { }
 
 export type Options = ZipOptions | SaveOptions
 
-export default async function downloader(options: SaveOptions): Promise<void>
-export default async function downloader(options: ZipOptions): Promise<Blob>
-export default async function downloader(options: Options): Promise<void | Blob> {
+export default async function zipDownloader(options: SaveOptions): Promise<void>
+export default async function zipDownloader(options: ZipOptions): Promise<Blob>
+export default async function zipDownloader(options: Options): Promise<void | Blob> {
   const writer = new ZipWriter(new BlobWriter('application/zip'))
   const limit = pLimit(options.concurrency || 10)
   await Promise.all(options.resources.map((resource, index) => limit(async () => {

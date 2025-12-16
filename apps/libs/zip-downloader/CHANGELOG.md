@@ -1,4 +1,10 @@
-# downloader
+# zip-downloader
+
+## 2.0.0
+
+### Major Changes
+
+- 项目换名
 
 ## 1.2.2
 
