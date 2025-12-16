@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Downloader 资源下载器（下载资源、Zip 压缩、下载到本地）
 // @namespace    xiaohuohumax/userscripts/downloader
-// @version      1.1.0
+// @version      1.2.0
 // @author       xiaohuohumax
 // @description  Downloader -- 资源下载器（下载资源、Zip 压缩、下载到本地）
 // ==/UserScript==
@@ -6645,20 +6645,5 @@ var __privateWrapper = (obj, member, setter, getter) => ({
     }
     GM_download(URL.createObjectURL(blob), options.filename);
   }
-  (async () => {
-    await downloader2({
-      resources: [
-        { name: "index.html", url: location.href },
-        {
-          name: "hello.txt",
-          blob: new Blob(["hello world"], { type: "text/plain" })
-        }
-      ],
-      concurrency: 10,
-      async onProgress(index) {
-        console.log(`正在下载第 ${index + 1} 个资源`);
-      }
-    });
-  })();
   return downloader2;
 }();
