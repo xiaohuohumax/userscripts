@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Downloader 资源下载器（下载资源、Zip 压缩、下载到本地）
 // @namespace    xiaohuohumax/userscripts/downloader
-// @version      1.2.1
+// @version      1.2.2
 // @author       xiaohuohumax
 // @description  Downloader -- 资源下载器（下载资源、Zip 压缩、下载到本地）
 // @license      MIT
