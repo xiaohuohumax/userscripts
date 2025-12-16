@@ -1,5 +1,11 @@
 # downloader
 
+## 1.2.2
+
+### Patch Changes
+
+- 完善说明文档
+
 ## 1.2.1
 
 ### Patch Changes

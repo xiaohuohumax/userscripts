@@ -107,6 +107,10 @@ const htmlAttributes = xpathSelector({
 console.log(htmlAttributes) // {lang: "en", charset: "UTF-8"}
 ```
 
+## 🧩 依赖项目
+
+- [fontoxpath](https://github.com/FontoXML/fontoxpath) XPath 引擎
+
 ## 🚨 免责声明
 
 - 本脚本仅供学习交流使用

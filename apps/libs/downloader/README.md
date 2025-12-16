@@ -84,6 +84,11 @@ const blob = await downloader({
 // GM_download(URL.createObjectURL(blob), 'index.zip')
 ```
 
+## 🧩 依赖项目
+
+- [zip.js](https://github.com/gildas-lormeau/zip.js) Zip 压缩库
+- [p-limit](https://github.com/sindresorhus/p-limit) 并发限制库
+
 ## 🚨 免责声明
 
 - 本脚本仅供学习交流使用

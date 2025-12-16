@@ -1,7 +1,7 @@
 {
   "name": "xpath-selector",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "XPath Selector -- 一个 XPath 选择器库，快速节点获取数据",
   "author": {
