@@ -1,6 +1,6 @@
 # XPath Selector
 
-**一个 XPath 选择器库，快速节点获取数据**
+**一个 XPath 选择器库，快速获取节点数据**
 
 <a href="https://github.com/xiaohuohumax/userscripts/tree/main/apps/libs/xpath-selector">
   <img src="https://img.shields.io/badge/GITHUB-项目地址-brightgreen?style=for-the-badge&logo=github" alt="项目地址" />
@@ -33,6 +33,24 @@
 | `node`       | Node   | 否       | `document` | 要搜索的节点                                                                                                                      |
 
 ### 📦 使用示例
+
+```html
+<!DOCTYPE html>
+<html lang="en" charset="UTF-8">
+<head>
+    <title>hello world</title>
+</head>
+<body>
+    <p>hello</p>
+    <p>world</p>
+    <a href="#">hello</a>
+    <a href="#">world</a>
+    <section>
+        <!-- section内容 -->
+    </section>
+</body>
+</html>
+```
 
 **获取 title 节点的文本内容**
 

@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     banner({
       content: `// ==UserScript==
-// @name         DXPath Selector 一个 XPath 选择器库，快速节点获取数据
+// @name         DXPath Selector 一个 XPath 选择器库，快速获取节点数据
 // @namespace    xiaohuohumax/userscripts/xpath-selector
 // @version      ${version}
 // @author       ${author.name}
