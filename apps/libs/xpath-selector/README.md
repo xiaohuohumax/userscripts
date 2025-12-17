@@ -125,6 +125,17 @@ const htmlAttributes = xpathSelector({
 console.log(htmlAttributes) // {lang: "en", charset: "UTF-8"}
 ```
 
+**获取自定义 html 节点的 title 节点的文本内容**
+
+```typescript
+const customHtmlTitle = xpathSelector({
+  expression: '//title/text()',
+  node: new DOMParser().parseFromString('<html><title>Hello</title></html>', 'text/html'),
+  returnType: 'string',
+})
+console.log(customHtmlTitle) // Hello
+```
+
 ## 🧩 依赖项目
 
 - [fontoxpath](https://github.com/FontoXML/fontoxpath) XPath 引擎
