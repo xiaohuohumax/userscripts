@@ -17,6 +17,8 @@
 
 ## 📥 参数说明
 
+### 通用函数 xpathSelector(options: Options)
+
 **Options 参数说明：**
 
 | 参数名       | 类型   | 是否必填 | 默认值     | 说明                                                                                                                              |
@@ -24,6 +26,88 @@
 | `expression` | string | 是       |            | 要获取的节点的 XPath 表达式                                                                                                       |
 | `returnType` | string | 是       |            | 获取结果的类型，可选值：`string`、`strings`、`number`、`numbers`、`boolean`、`nodes`、`first-node`、`map`、`array`、`all-results` |
 | `node`       | Node   | 否       | `document` | 要搜索的节点                                                                                                                      |
+
+```typescript
+const title = xpathSelector({
+  expression: '//title/text()',
+  returnType: 'string'
+})
+console.log(title) // hello world
+```
+
+### 快捷函数 xpathSelector.select[returnType](expression: string, node?: Node)
+
+**Options 参数说明：**
+
+| 参数名       | 类型   | 是否必填 | 默认值     | 说明                                             |
+| ------------ | ------ | -------- | ---------- | ------------------------------------------------ |
+| `returnType` | string | 是       |            | 函数名，可选值见上方 Options.returnType 参数说明 |
+| `expression` | string | 是       |            | 要获取的节点的 XPath 表达式                      |
+| `node`       | Node   | 否       | `document` | 要搜索的节点                                     |
+
+```typescript
+const title = xpathSelector.selectString('//title/text()')
+console.log(title) // hello world
+```
+
+## 📖 使用方式
+
+### 方式一：直接引入库文件
+
+```typescript
+// ==UserScript==
+// @require      https://**/xpath-selector.js?*
+// ==/UserScript==
+
+(function () {
+  'use strict'
+  const title = xpathSelector.selectString('//title/text()')
+  console.log(title) // hello world
+})()
+```
+
+### 方式二：vite + vite-plugin-monkey [推荐]
+
+1. 初始化项目
+
+```shell
+npm create monkey
+```
+
+2. 安装 xpath-selector 依赖
+
+```shell
+npm i @xiaohuohumax/xpath-selector
+```
+
+3. 在 main.ts 中使用 xpath-selector
+
+```typescript
+import xpathSelector from '@xiaohuohumax/xpath-selector'
+
+const button = xpathSelector.selectFirstNode<HTMLButtonElement>('//button')
+console.log(button) // Output: <button>Click Me</button>
+```
+
+4. 修改 vite.config.ts 排除 xpath-selector 依赖
+
+```typescript
+import { defineConfig } from 'vite'
+import monkey, { cdn } from 'vite-plugin-monkey'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    monkey({
+      build: {
+        externalGlobals: {
+          '@xiaohuohumax/xpath-selector': cdn.jsdelivr('xpathSelector', 'dist/index.lib.js'),
+        },
+      },
+    }),
+  ],
+})
+```
 
 ## 📦 使用示例
 
@@ -48,158 +132,63 @@
 **获取 title 节点的文本内容**
 
 ```typescript
-const title = xpathSelector({
-  expression: '//title/text()',
-  returnType: 'string'
-})
+const title = xpathSelector.selectString('//title/text()')
 console.log(title) // hello world
 ```
 
 **获取所有 p 节点的文本内容**
 
 ```typescript
-const pList = xpathSelector({
-  expression: '//p/text()',
-  returnType: 'strings'
-})
+const pList = xpathSelector.selectStrings('//p/text()')
 console.log(pList) // ['hello', 'world']
 ```
 
 **统计所有 a 节点的个数**
 
 ```typescript
-const aCount = xpathSelector({
-  expression: 'count(//a)',
-  returnType: 'number'
-})
+const aCount = xpathSelector.selectNumber('count(//a)')
 console.log(aCount) // 2
 ```
 
 **判断是否存在 section 节点**
 
 ```typescript
-const hasSection = xpathSelector({
-  expression: 'boolean(//section)',
-  returnType: 'boolean'
-})
+const hasSection = xpathSelector.selectBoolean('boolean(//section)')
 console.log(hasSection) // true
 ```
 
 **获取全部的 a 节点**
 
 ```typescript
-const aList = xpathSelector({
-  expression: '//a',
-  returnType: 'nodes'
-})
+const aList = xpathSelector.selectNodes('//a')
 console.log(aList) // [<a>hello</a>, <a>world</a>]
 ```
 
 **获取第一个 a 节点**
 
 ```typescript
-const firstA = xpathSelector({
-  expression: '//a',
-  returnType: 'first-node'
-})
+const firstA = xpathSelector.selectFirstNode('//a')
 console.log(firstA) // <a>hello</a>
 ```
 
 **获取 html 节点的全部属性**
 
 ```typescript
-const htmlAttributes = xpathSelector({
-  expression: `map:merge(
-    for $attr in //html/@*
-    return map:entry(local-name($attr), string($attr))
-  )`,
-  returnType: 'map'
-})
+const htmlAttributes = xpathSelector.selectMap(`map:merge(
+  for $attr in //html/@*
+  return map:entry(local-name($attr), string($attr))
+)`)
 console.log(htmlAttributes) // {lang: "en", charset: "UTF-8"}
 ```
 
 **获取自定义 html 节点的 title 节点的文本内容**
 
 ```typescript
-const customHtmlTitle = xpathSelector({
-  expression: '//title/text()',
-  node: new DOMParser().parseFromString('<html><title>Hello</title></html>', 'text/html'),
-  returnType: 'string',
-})
+const customHtmlTitle = xpathSelector.selectString(
+  '//title/text()',
+  new DOMParser().parseFromString('<html><title>Hello</title></html>', 'text/html'),
+)
 console.log(customHtmlTitle) // Hello
-```
-
-## 📖 使用方式
-
-### 方式一：直接引入库文件
-
-```typescript
-// ==UserScript==
-// @require      https://**/xpath-selector.js?*
-// ==/UserScript==
-
-(function () {
-  'use strict'
-  const title = xpathSelector({
-    expression: '//title/text()',
-    returnType: 'string'
-  })
-  console.log(title) // hello world
-})()
-```
-
-### 方式二：vite + vite-plugin-monkey [推荐]
-
-1. 初始化项目
-
-```shell
-npm create monkey
-```
-
-2. 安装 xpath-selector 依赖
-
-```shell
-npm i @xiaohuohumax/xpath-selector
-```
-
-3. 在 main.ts 中使用 xpath-selector
-
-```typescript
-import xpathSelector from '@xiaohuohumax/xpath-selector'
-
-const title = xpathSelector({
-  expression: '//title/text()',
-  returnType: 'string'
-})
-
-console.log(title) // Output: "Test Page"
-
-const links = xpathSelector<HTMLAnchorElement, 'nodes'>({
-  expression: '//a',
-  returnType: 'nodes',
-})
-
-console.log(links) // Output: [<a href="#">Hello</a>, <a href="#">World</a>]
-```
-
-4. 修改 vite.config.ts 排除 xpath-selector 依赖
-
-```typescript
-import { defineConfig } from 'vite'
-import monkey, { cdn } from 'vite-plugin-monkey'
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    monkey({
-      build: {
-        externalGlobals: {
-          '@xiaohuohumax/xpath-selector': cdn.jsdelivr('xpathSelector', 'dist/index.lib.js'),
-        },
-      },
-    }),
-  ],
-})
 ```
 
 ## 🧩 依赖项目

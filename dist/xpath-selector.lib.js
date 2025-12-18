@@ -10602,14 +10602,28 @@ ${d2}`);
     }
     return returnTypeMap[returnType];
   }
-  function xpathSelector2(options) {
-    return fontoxpath.evaluateXPath(
-      options.expression,
-      options.node || document,
-      null,
-      null,
-      returnTypeTransition(options.returnType)
-    );
+  function createXPathSelector() {
+    function xpathSelector2(options) {
+      return fontoxpath.evaluateXPath(
+        options.expression,
+        options.node || document,
+        null,
+        null,
+        returnTypeTransition(options.returnType)
+      );
+    }
+    xpathSelector2.selectString = (expression, node) => xpathSelector2({ expression, node, returnType: "string" });
+    xpathSelector2.selectStrings = (expression, node) => xpathSelector2({ expression, node, returnType: "strings" });
+    xpathSelector2.selectNumber = (expression, node) => xpathSelector2({ expression, node, returnType: "number" });
+    xpathSelector2.selectNumbers = (expression, node) => xpathSelector2({ expression, node, returnType: "numbers" });
+    xpathSelector2.selectBoolean = (expression, node) => xpathSelector2({ expression, node, returnType: "boolean" });
+    xpathSelector2.selectNodes = (expression, node) => xpathSelector2({ expression, node, returnType: "nodes" });
+    xpathSelector2.selectFirstNode = (expression, node) => xpathSelector2({ expression, node, returnType: "first-node" });
+    xpathSelector2.selectMap = (expression, node) => xpathSelector2({ expression, node, returnType: "map" });
+    xpathSelector2.selectArray = (expression, node) => xpathSelector2({ expression, node, returnType: "array" });
+    xpathSelector2.selectAllResults = (expression, node) => xpathSelector2({ expression, node, returnType: "all-results" });
+    return xpathSelector2;
   }
-  return xpathSelector2;
+  const index = createXPathSelector();
+  return index;
 }();
