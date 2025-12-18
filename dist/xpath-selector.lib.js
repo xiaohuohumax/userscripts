@@ -1,12 +1,3 @@
-// ==UserScript==
-// @name         DXPath Selector 一个 XPath 选择器库，快速获取节点数据
-// @namespace    xiaohuohumax/userscripts/xpath-selector
-// @version      1.0.2
-// @author       xiaohuohumax
-// @description  XPath Selector -- 一个 XPath 选择器库，快速获取节点数据
-// @license      MIT
-// ==/UserScript==
-
 var xpathSelector = function() {
   "use strict";
   function t$2(t2, s2, r2, i2) {

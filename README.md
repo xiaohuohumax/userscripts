@@ -18,7 +18,7 @@
 
 ## 📦 封装工具
 
-| 名称                                                   | 功能                                         | 使用                                                                                                                            |
-| ------------------------------------------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| [zip-downloader](./apps/libs/zip-downloader/README.md) | 资源下载器（下载资源、Zip 压缩、下载到本地） | [🐒Greasy Fork](https://greasyfork.org/zh-CN/scripts/559087) \| [🐱Script Cat](https://scriptcat.org/zh-CN/script-show-page/4893) |
-| [xpath-selector](./apps/libs/xpath-selector/README.md) | 一个 XPath 选择器库，快速获取节点数据        | [🐒Greasy Fork](https://greasyfork.org/zh-CN/scripts/559142) \| [🐱Script Cat](https://scriptcat.org/zh-CN/script-show-page/4900) |
+| 名称                                              | 功能                                         | 使用                                                                                                                            |
+| ------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| [zip-downloader](./libs/zip-downloader/README.md) | 资源下载器（下载资源、Zip 压缩、下载到本地） | [🐒Greasy Fork](https://greasyfork.org/zh-CN/scripts/559087) \| [🐱Script Cat](https://scriptcat.org/zh-CN/script-show-page/4893) |
+| [xpath-selector](./libs/xpath-selector/README.md) | 一个 XPath 选择器库，快速获取节点数据        | [🐒Greasy Fork](https://greasyfork.org/zh-CN/scripts/559142) \| [🐱Script Cat](https://scriptcat.org/zh-CN/script-show-page/4900) |

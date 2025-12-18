@@ -1,4 +1,4 @@
-# zip-downloader
+# @xiaohuohumax/xpath-selector
 
 ## 2.0.0
 

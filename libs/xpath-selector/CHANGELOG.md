@@ -1,4 +1,4 @@
-# xpath-selector
+# @xiaohuohumax/xpath-selector
 
 ## 1.0.2
 

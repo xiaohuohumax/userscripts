@@ -1,0 +1,23 @@
+{
+  "name": "lib-default-config",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "lib default config",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "client.d.ts",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --external vite,vite-plugin-banner,vite-plugin-dts,vite-plugin-static-copy"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "vite": "^6.0.6",
+    "vite-plugin-banner": "^0.8.1",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-static-copy": "^3.1.4"
+  }
+}

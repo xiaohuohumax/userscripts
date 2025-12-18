@@ -1,12 +1,3 @@
-// ==UserScript==
-// @name         Zip Downloader 资源下载器（下载资源、Zip 压缩、下载到本地）
-// @namespace    xiaohuohumax/userscripts/zip-downloader
-// @version      2.0.0
-// @author       xiaohuohumax
-// @description  Zip Downloader -- 资源下载器（下载资源、Zip 压缩、下载到本地）
-// @license      MIT
-// ==/UserScript==
-
 var zipDownloader = function() {
   "use strict";var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
@@ -4620,7 +4611,7 @@ var __privateWrapper = (obj, member, setter, getter) => ({
     return bitFlag;
   }
   try {
-    configure({ baseURI: _documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === "SCRIPT" && _documentCurrentScript.src || new URL("zip-downloader.js", document.baseURI).href });
+    configure({ baseURI: _documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === "SCRIPT" && _documentCurrentScript.src || new URL("index.lib.js", document.baseURI).href });
   } catch {
   }
   const A = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";

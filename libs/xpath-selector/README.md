@@ -2,13 +2,13 @@
 
 **一个 XPath 选择器库，快速获取节点数据**
 
-<a href="https://github.com/xiaohuohumax/userscripts/tree/main/apps/libs/xpath-selector">
+<a href="https://github.com/xiaohuohumax/userscripts/tree/main/libs/xpath-selector">
   <img src="https://img.shields.io/badge/GITHUB-项目地址-brightgreen?style=for-the-badge&logo=github" alt="项目地址" />
 </a>
 <a href="https://github.com/xiaohuohumax/userscripts/blob/main/LICENSE">
   <img src="https://img.shields.io/badge/MIT-开源协议-orange?style=for-the-badge&logo=github" alt="开源协议" />
 </a>
-<a href="https://github.com/xiaohuohumax/userscripts/blob/main/apps/libs/xpath-selector/CHANGELOG.md">
+<a href="https://github.com/xiaohuohumax/userscripts/blob/main/libs/xpath-selector/CHANGELOG.md">
   <img src="https://img.shields.io/badge/CHANGELOG-更新日志-blue?style=for-the-badge&logo=github" alt="更新日志" />
 </a>
 <a href="https://github.com/xiaohuohumax/userscripts/issues">
@@ -22,6 +22,7 @@
 ```typescript
 // @require      https://**/xpath-selector.js?*
 ```
+
 ### 📥 参数说明
 
 **Options 参数说明：**

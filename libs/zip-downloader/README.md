@@ -2,13 +2,13 @@
 
 **资源下载器（下载资源、Zip 压缩、下载到本地）**
 
-<a href="https://github.com/xiaohuohumax/userscripts/tree/main/apps/libs/zip-downloader">
+<a href="https://github.com/xiaohuohumax/userscripts/tree/main/libs/zip-downloader">
   <img src="https://img.shields.io/badge/GITHUB-项目地址-brightgreen?style=for-the-badge&logo=github" alt="项目地址" />
 </a>
 <a href="https://github.com/xiaohuohumax/userscripts/blob/main/LICENSE">
   <img src="https://img.shields.io/badge/MIT-开源协议-orange?style=for-the-badge&logo=github" alt="开源协议" />
 </a>
-<a href="https://github.com/xiaohuohumax/userscripts/blob/main/apps/libs/zip-downloader/CHANGELOG.md">
+<a href="https://github.com/xiaohuohumax/userscripts/blob/main/libs/zip-downloader/CHANGELOG.md">
   <img src="https://img.shields.io/badge/CHANGELOG-更新日志-blue?style=for-the-badge&logo=github" alt="更新日志" />
 </a>
 <a href="https://github.com/xiaohuohumax/userscripts/issues">
