@@ -1,7 +1,7 @@
 {
   "name": "@xiaohuohumax/xpath-selector",
   "type": "module",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "XPath Selector -- 一个 XPath 选择器库，快速获取节点数据",
   "author": {
     "name": "xiaohuohumax",

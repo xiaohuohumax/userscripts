@@ -173,6 +173,13 @@ const title = xpathSelector({
 })
 
 console.log(title) // Output: "Test Page"
+
+const links = xpathSelector<HTMLAnchorElement, 'nodes'>({
+  expression: '//a',
+  returnType: 'nodes',
+})
+
+console.log(links) // Output: [<a href="#">Hello</a>, <a href="#">World</a>]
 ```
 
 4. 修改 vite.config.ts 排除 xpath-selector 依赖

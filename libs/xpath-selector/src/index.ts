@@ -52,8 +52,8 @@ function returnTypeTransition<T extends ReturnType>(returnType: T): ReturnTypeTr
   return returnTypeMap[returnType]
 }
 
-export default function xpathSelector<T extends ReturnType>(options: Options<T>) {
-  return fontoxpath.evaluateXPath<fontoxpath.Node, ReturnTypeTransition<T>>(
+export default function xpathSelector<N extends fontoxpath.Node, T extends ReturnType>(options: Options<T>) {
+  return fontoxpath.evaluateXPath<N, ReturnTypeTransition<T>>(
     options.expression,
     options.node || document,
     null,
