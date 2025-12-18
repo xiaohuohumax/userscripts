@@ -52,24 +52,24 @@ function returnTypeTransition<T extends ReturnType>(returnType: T): ReturnTypeTr
   return returnTypeMap[returnType]
 }
 
-type QuickFunc<T extends ReturnType> = <N extends fontoxpath.Node>(expression: string, node?: Node) => fontoxpath.IReturnTypes<N>[ReturnTypeTransition<T>]
+export type SelectorReturn<N extends fontoxpath.Node, T extends ReturnType> = fontoxpath.IReturnTypes<N>[ReturnTypeTransition<T>]
 
 export interface XPathSelector {
-  <N extends fontoxpath.Node, T extends ReturnType>(options: Options<T>): fontoxpath.IReturnTypes<N>[ReturnTypeTransition<T>]
-  selectString: QuickFunc<'string'>
-  selectStrings: QuickFunc<'strings'>
-  selectNumber: QuickFunc<'number'>
-  selectNumbers: QuickFunc<'numbers'>
-  selectBoolean: QuickFunc<'boolean'>
-  selectNodes: QuickFunc<'nodes'>
-  selectFirstNode: QuickFunc<'first-node'>
-  selectMap: QuickFunc<'map'>
-  selectArray: QuickFunc<'array'>
-  selectAllResults: QuickFunc<'all-results'>
+  <N extends fontoxpath.Node, T extends ReturnType>(options: Options<T>): SelectorReturn<N, T>
+  selectString: (expression: string, node?: Node) => SelectorReturn<fontoxpath.Node, 'string'>
+  selectStrings: (expression: string, node?: Node) => SelectorReturn<fontoxpath.Node, 'strings'>
+  selectNumber: (expression: string, node?: Node) => SelectorReturn<fontoxpath.Node, 'number'>
+  selectNumbers: (expression: string, node?: Node) => SelectorReturn<fontoxpath.Node, 'numbers'>
+  selectBoolean: (expression: string, node?: Node) => SelectorReturn<fontoxpath.Node, 'boolean'>
+  selectNodes: <N extends fontoxpath.Node>(expression: string, node?: Node) => SelectorReturn<N, 'nodes'>
+  selectFirstNode: <N extends fontoxpath.Node>(expression: string, node?: Node) => SelectorReturn<N, 'first-node'>
+  selectMap: (expression: string, node?: Node) => SelectorReturn<fontoxpath.Node, 'map'>
+  selectArray: (expression: string, node?: Node) => SelectorReturn<fontoxpath.Node, 'array'>
+  selectAllResults: <N extends fontoxpath.Node>(expression: string, node?: Node) => SelectorReturn<N, 'all-results'>
 }
 
 function createXPathSelector(): XPathSelector {
-  function xpathSelector<N extends fontoxpath.Node, T extends ReturnType>(options: Options<T>) {
+  function xpathSelector<N extends fontoxpath.Node, T extends ReturnType>(options: Options<T>): SelectorReturn<N, T> {
     return fontoxpath.evaluateXPath<N, ReturnTypeTransition<T>>(
       options.expression,
       options.node || document,
