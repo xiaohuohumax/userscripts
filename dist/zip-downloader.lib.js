@@ -1,10 +1,10 @@
 // ==UserScript==
-// name        Zip Downloader
-// namespace   xiaohuohumax/userscripts/zip-downloader
-// version     2.0.2
-// author      xiaohuohumax
-// description Zip Downloader -- 资源下载器（下载资源、Zip 压缩、下载到本地）
-// license     MIT
+// @name        Zip Downloader
+// @namespace   xiaohuohumax/userscripts/zip-downloader
+// @version     2.0.2
+// @author      xiaohuohumax
+// @description Zip Downloader -- 资源下载器（下载资源、Zip 压缩、下载到本地）
+// @license     MIT
 // ==/UserScript==
 
 var zipDownloader = function() {

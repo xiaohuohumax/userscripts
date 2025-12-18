@@ -36,7 +36,7 @@ export default function (options: Options): UserConfig {
     }
     const keyMax = Object.keys(options.meta).reduce((acc, cur) => Math.max(acc, cur.length), 0)
     const lines = Object.entries(options.meta)
-      .map(([key, value]) => `// ${key.padEnd(keyMax)} ${value}`)
+      .map(([key, value]) => `// @${key.padEnd(keyMax)} ${value}`)
     return `// ==UserScript==\n${lines.join('\n')}\n// ==/UserScript==\n`
   }
 

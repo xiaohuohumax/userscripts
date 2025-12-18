@@ -1,5 +1,11 @@
 # @xiaohuohumax/xpath-selector
 
+## 2.0.3
+
+### Patch Changes
+
+- 修复元数据构建异常
+
 ## 2.0.2
 
 ### Patch Changes
