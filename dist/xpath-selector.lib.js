@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        XPath Selector
 // @namespace   xiaohuohumax/userscripts/xpath-selector
-// @version     1.1.0
+// @version     1.1.1
 // @author      xiaohuohumax
 // @description XPath Selector -- 一个 XPath 选择器库，快速获取节点数据
 // @license     MIT
