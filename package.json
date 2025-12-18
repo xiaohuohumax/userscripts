@@ -25,7 +25,7 @@
     "build:packages": "pnpm -r --filter=./packages/** --stream run build",
     "build:libs": "pnpm -r --filter=./libs/** --stream run build",
     "commit": "git add . && cz",
-    "release": "build:libs && changeset publish",
+    "release": "pnpm build:packages && pnpm build:apps && changeset publish",
     "postinstall": "simple-git-hooks",
     "changeset": "changeset",
     "lint": "eslint .",
