@@ -3,8 +3,8 @@ name: Publish Library
 on:
   workflow_dispatch:
   push:
-    tags:
-      - '@xiaohuohumax/*@*'
+    branches:
+      - main
 
 permissions:
   id-token: write
