@@ -1,5 +1,11 @@
 # @xiaohuohumax/xpath-selector
 
+## 1.0.3
+
+### Patch Changes
+
+- 修复打包异常
+
 ## 1.0.2
 
 ### Patch Changes
