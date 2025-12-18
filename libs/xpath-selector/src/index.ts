@@ -52,18 +52,20 @@ function returnTypeTransition<T extends ReturnType>(returnType: T): ReturnTypeTr
   return returnTypeMap[returnType]
 }
 
+type QuickFunc<T extends ReturnType> = <N extends fontoxpath.Node>(expression: string, node?: Node) => fontoxpath.IReturnTypes<N>[ReturnTypeTransition<T>]
+
 export interface XPathSelector {
   <N extends fontoxpath.Node, T extends ReturnType>(options: Options<T>): fontoxpath.IReturnTypes<N>[ReturnTypeTransition<T>]
-  selectString: <N extends fontoxpath.Node>(expression: string, node?: Node) => fontoxpath.IReturnTypes<N>[ReturnTypeTransition<'string'>]
-  selectStrings: <N extends fontoxpath.Node>(expression: string, node?: Node) => fontoxpath.IReturnTypes<N>[ReturnTypeTransition<'strings'>]
-  selectNumber: <N extends fontoxpath.Node>(expression: string, node?: Node) => fontoxpath.IReturnTypes<N>[ReturnTypeTransition<'number'>]
-  selectNumbers: <N extends fontoxpath.Node>(expression: string, node?: Node) => fontoxpath.IReturnTypes<N>[ReturnTypeTransition<'numbers'>]
-  selectBoolean: <N extends fontoxpath.Node>(expression: string, node?: Node) => fontoxpath.IReturnTypes<N>[ReturnTypeTransition<'boolean'>]
-  selectNodes: <N extends fontoxpath.Node>(expression: string, node?: Node) => fontoxpath.IReturnTypes<N>[ReturnTypeTransition<'nodes'>]
-  selectFirstNode: <N extends fontoxpath.Node>(expression: string, node?: Node) => fontoxpath.IReturnTypes<N>[ReturnTypeTransition<'first-node'>]
-  selectMap: <N extends fontoxpath.Node>(expression: string, node?: Node) => fontoxpath.IReturnTypes<N>[ReturnTypeTransition<'map'>]
-  selectArray: <N extends fontoxpath.Node>(expression: string, node?: Node) => fontoxpath.IReturnTypes<N>[ReturnTypeTransition<'array'>]
-  selectAllResults: <N extends fontoxpath.Node>(expression: string, node?: Node) => fontoxpath.IReturnTypes<N>[ReturnTypeTransition<'all-results'>]
+  selectString: QuickFunc<'string'>
+  selectStrings: QuickFunc<'strings'>
+  selectNumber: QuickFunc<'number'>
+  selectNumbers: QuickFunc<'numbers'>
+  selectBoolean: QuickFunc<'boolean'>
+  selectNodes: QuickFunc<'nodes'>
+  selectFirstNode: QuickFunc<'first-node'>
+  selectMap: QuickFunc<'map'>
+  selectArray: QuickFunc<'array'>
+  selectAllResults: QuickFunc<'all-results'>
 }
 
 function createXPathSelector(): XPathSelector {
@@ -77,15 +79,15 @@ function createXPathSelector(): XPathSelector {
     )
   }
 
-  xpathSelector.selectString = <N extends fontoxpath.Node>(expression: string, node?: Node) => xpathSelector<N, 'string'>({ expression, node, returnType: 'string' })
-  xpathSelector.selectStrings = <N extends fontoxpath.Node>(expression: string, node?: Node) => xpathSelector<N, 'strings'>({ expression, node, returnType: 'strings' })
-  xpathSelector.selectNumber = <N extends fontoxpath.Node>(expression: string, node?: Node) => xpathSelector<N, 'number'>({ expression, node, returnType: 'number' })
-  xpathSelector.selectNumbers = <N extends fontoxpath.Node>(expression: string, node?: Node) => xpathSelector<N, 'numbers'>({ expression, node, returnType: 'numbers' })
-  xpathSelector.selectBoolean = <N extends fontoxpath.Node>(expression: string, node?: Node) => xpathSelector<N, 'boolean'>({ expression, node, returnType: 'boolean' })
+  xpathSelector.selectString = (expression: string, node?: Node) => xpathSelector({ expression, node, returnType: 'string' })
+  xpathSelector.selectStrings = (expression: string, node?: Node) => xpathSelector({ expression, node, returnType: 'strings' })
+  xpathSelector.selectNumber = (expression: string, node?: Node) => xpathSelector({ expression, node, returnType: 'number' })
+  xpathSelector.selectNumbers = (expression: string, node?: Node) => xpathSelector({ expression, node, returnType: 'numbers' })
+  xpathSelector.selectBoolean = (expression: string, node?: Node) => xpathSelector({ expression, node, returnType: 'boolean' })
   xpathSelector.selectNodes = <N extends fontoxpath.Node>(expression: string, node?: Node) => xpathSelector<N, 'nodes'>({ expression, node, returnType: 'nodes' })
   xpathSelector.selectFirstNode = <N extends fontoxpath.Node>(expression: string, node?: Node) => xpathSelector<N, 'first-node'>({ expression, node, returnType: 'first-node' })
-  xpathSelector.selectMap = <N extends fontoxpath.Node>(expression: string, node?: Node) => xpathSelector<N, 'map'>({ expression, node, returnType: 'map' })
-  xpathSelector.selectArray = <N extends fontoxpath.Node>(expression: string, node?: Node) => xpathSelector<N, 'array'>({ expression, node, returnType: 'array' })
+  xpathSelector.selectMap = (expression: string, node?: Node) => xpathSelector({ expression, node, returnType: 'map' })
+  xpathSelector.selectArray = (expression: string, node?: Node) => xpathSelector({ expression, node, returnType: 'array' })
   xpathSelector.selectAllResults = <N extends fontoxpath.Node>(expression: string, node?: Node) => xpathSelector<N, 'all-results'>({ expression, node, returnType: 'all-results' })
 
   return xpathSelector
