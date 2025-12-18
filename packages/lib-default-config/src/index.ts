@@ -31,7 +31,7 @@ export interface Options {
 
 export default function (options: Options): UserConfig {
   function content(filename: string) {
-    if (!filename.endsWith('.iife.js')) {
+    if (!filename.endsWith('.lib.js')) {
       return
     }
     const keyMax = Object.keys(options.meta).reduce((acc, cur) => Math.max(acc, cur.length), 0)

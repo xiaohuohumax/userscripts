@@ -1,5 +1,11 @@
 # @xiaohuohumax/xpath-selector
 
+## 2.0.2
+
+### Patch Changes
+
+- 更新说明文档
+
 ## 2.0.1
 
 ### Patch Changes

@@ -120,6 +120,6 @@
   "cSpell.ignorePaths": [
     "*.yaml",
     "*.vscode",
-    "dist/*.user.js"
+    "dist/*.js"
   ]
 }

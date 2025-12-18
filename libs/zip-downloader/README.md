@@ -15,16 +15,7 @@
   <img src="https://img.shields.io/badge/issues-问题反馈-yellow?style=for-the-badge&logo=github" alt="问题反馈" />
 </a>
 
-## 📖 使用方式
-
-### ✍ 添加元数据
-
-```typescript
-// @require      https://**/zip-downloader.js?*
-// @grant        GM_download
-```
-
-### 📥 参数说明
+## 📥 参数说明
 
 **Options 参数说明：**
 
@@ -43,7 +34,7 @@
 | `url`  | string | 否       |        | URL 类型资源  |
 | `blob` | Blob   | 否       |        | Blob 类型资源 |
 
-### 📦 使用示例
+## 📦 使用示例
 
 **下载，压缩，并保存到本地**
 
@@ -82,6 +73,93 @@ const blob = await zipDownloader({
 })
 // 自行处理
 // GM_download(URL.createObjectURL(blob), 'index.zip')
+```
+
+## 📖 使用方式
+
+### 方式一：直接引入库文件
+
+```typescript
+// ==UserScript==
+// @require      https://**/zip-downloader.js?*
+// @grant        GM_download
+// ==/UserScript==
+
+(async function () {
+  'use strict'
+  await zipDownloader({
+    filename: 'index.zip',
+    resources: [
+      { name: 'index.html', url: location.href },
+      {
+        name: 'hello.txt',
+        blob: new Blob(['hello world'], { type: 'text/plain' }),
+      },
+    ],
+    concurrency: 10,
+    async onProgress(index) {
+      console.log(`正在下载第 ${index + 1} 个资源`)
+    },
+  })
+})()
+```
+
+### 方式二：vite + vite-plugin-monkey [推荐]
+
+1. 初始化项目
+
+```shell
+npm create monkey
+```
+
+2. 安装 zip-downloader 依赖
+
+```shell
+npm i @xiaohuohumax/zip-downloader
+```
+
+3. 在 main.ts 中使用 zip-downloader
+
+```typescript
+import zipDownloader from '@xiaohuohumax/zip-downloader'
+
+await zipDownloader({
+  filename: 'index.zip',
+  resources: [
+    { name: 'index.html', url: location.href },
+    {
+      name: 'hello.txt',
+      blob: new Blob(['hello world'], { type: 'text/plain' }),
+    },
+  ],
+  concurrency: 10,
+  async onProgress(index) {
+    console.log(`正在下载第 ${index + 1} 个资源`)
+  },
+})
+```
+
+1. 修改 vite.config.ts 排除 zip-downloader 依赖和添加 GM_download 权限
+
+```typescript
+import { defineConfig } from 'vite'
+import monkey, { cdn } from 'vite-plugin-monkey'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    monkey({
+      build: {
+        externalGlobals: {
+          '@xiaohuohumax/zip-downloader': cdn.jsdelivr('zipDownloader', 'dist/index.lib.js'),
+        },
+      },
+      userscript: {
+        grant: ['GM_download']
+      },
+    }),
+  ],
+})
 ```
 
 ## 🧩 依赖项目

@@ -15,15 +15,7 @@
   <img src="https://img.shields.io/badge/issues-问题反馈-yellow?style=for-the-badge&logo=github" alt="问题反馈" />
 </a>
 
-## 📖 使用方式
-
-### ✍ 添加元数据
-
-```typescript
-// @require      https://**/xpath-selector.js?*
-```
-
-### 📥 参数说明
+## 📥 参数说明
 
 **Options 参数说明：**
 
@@ -33,7 +25,7 @@
 | `returnType` | string | 是       |            | 获取结果的类型，可选值：`string`、`strings`、`number`、`numbers`、`boolean`、`nodes`、`first-node`、`map`、`array`、`all-results` |
 | `node`       | Node   | 否       | `document` | 要搜索的节点                                                                                                                      |
 
-### 📦 使用示例
+## 📦 使用示例
 
 ```html
 <!DOCTYPE html>
@@ -135,6 +127,72 @@ const customHtmlTitle = xpathSelector({
   returnType: 'string',
 })
 console.log(customHtmlTitle) // Hello
+```
+
+## 📖 使用方式
+
+### 方式一：直接引入库文件
+
+```typescript
+// ==UserScript==
+// @require      https://**/xpath-selector.js?*
+// ==/UserScript==
+
+(function () {
+  'use strict'
+  const title = xpathSelector({
+    expression: '//title/text()',
+    returnType: 'string'
+  })
+  console.log(title) // hello world
+})()
+```
+
+### 方式二：vite + vite-plugin-monkey [推荐]
+
+1. 初始化项目
+
+```shell
+npm create monkey
+```
+
+2. 安装 xpath-selector 依赖
+
+```shell
+npm i @xiaohuohumax/xpath-selector
+```
+
+3. 在 main.ts 中使用 xpath-selector
+
+```typescript
+import xpathSelector from '@xiaohuohumax/xpath-selector'
+
+const title = xpathSelector({
+  expression: '//title/text()',
+  returnType: 'string'
+})
+
+console.log(title) // Output: "Test Page"
+```
+
+4. 修改 vite.config.ts 排除 xpath-selector 依赖
+
+```typescript
+import { defineConfig } from 'vite'
+import monkey, { cdn } from 'vite-plugin-monkey'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    monkey({
+      build: {
+        externalGlobals: {
+          '@xiaohuohumax/xpath-selector': cdn.jsdelivr('xpathSelector', 'dist/index.lib.js'),
+        },
+      },
+    }),
+  ],
+})
 ```
 
 ## 🧩 依赖项目
