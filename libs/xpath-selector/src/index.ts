@@ -12,7 +12,7 @@ export type ReturnType =
   | 'array'
   | 'all-results'
 
-export interface Options<T> {
+export interface Options<T extends ReturnType> {
   expression: string
   returnType: T
   node?: Node
@@ -55,7 +55,18 @@ function returnTypeTransition<T extends ReturnType>(returnType: T): ReturnTypeTr
 export type SelectorReturn<N extends fontoxpath.Node, T extends ReturnType> = fontoxpath.IReturnTypes<N>[ReturnTypeTransition<T>]
 
 export interface XPathSelector {
-  <N extends fontoxpath.Node, T extends ReturnType>(options: Options<T>): SelectorReturn<N, T>
+  // Common functions
+  (options: Options<'string'>): SelectorReturn<fontoxpath.Node, 'string'>
+  (options: Options<'strings'>): SelectorReturn<fontoxpath.Node, 'strings'>
+  (options: Options<'number'>): SelectorReturn<fontoxpath.Node, 'number'>
+  (options: Options<'numbers'>): SelectorReturn<fontoxpath.Node, 'numbers'>
+  (options: Options<'boolean'>): SelectorReturn<fontoxpath.Node, 'boolean'>
+  <N extends fontoxpath.Node>(options: Options<'nodes'>): SelectorReturn<N, 'nodes'>
+  <N extends fontoxpath.Node>(options: Options<'first-node'>): SelectorReturn<N, 'first-node'>
+  (options: Options<'map'>): SelectorReturn<fontoxpath.Node, 'map'>
+  (options: Options<'array'>): SelectorReturn<fontoxpath.Node, 'array'>
+  <N extends fontoxpath.Node>(options: Options<'all-results'>): SelectorReturn<N, 'all-results'>
+  // Quick functions
   selectString: (expression: string, node?: Node) => SelectorReturn<fontoxpath.Node, 'string'>
   selectStrings: (expression: string, node?: Node) => SelectorReturn<fontoxpath.Node, 'strings'>
   selectNumber: (expression: string, node?: Node) => SelectorReturn<fontoxpath.Node, 'number'>

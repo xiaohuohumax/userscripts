@@ -1,5 +1,11 @@
 # @xiaohuohumax/xpath-selector
 
+## 1.1.3
+
+### Patch Changes
+
+- dts 简化
+
 ## 1.1.2
 
 ### Patch Changes
