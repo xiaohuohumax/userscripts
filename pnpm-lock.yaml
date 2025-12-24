@@ -60,6 +60,9 @@ importers:
 
   apps/common/qr-code:
     dependencies:
+      get-urls:
+        specifier: ^12.1.0
+        version: 12.1.0
       jsqr:
         specifier: ^1.4.0
         version: 1.4.0

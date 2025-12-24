@@ -1,7 +1,7 @@
 {
   "name": "common-qr-code",
   "type": "module",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "private": true,
   "description": "图片二维码识别/生成工具（Common QR Code）-- 右键图片，识别二维码并复制到剪贴板。右键文字，生成二维码并展示。",
   "author": {
@@ -24,6 +24,7 @@
     "build": "vite build --emptyOutDir=false"
   },
   "dependencies": {
+    "get-urls": "^12.1.0",
     "jsqr": "^1.4.0",
     "notiflix": "^3.2.8",
     "qrcode": "^1.5.4",

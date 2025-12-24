@@ -1,9 +1,10 @@
 import { GM_xmlhttpRequest } from '$'
+import getUrls from 'get-urls'
 import jsQR from 'jsqr'
 
-export type ImageElement = HTMLImageElement | HTMLCanvasElement
+export type Target = HTMLImageElement | HTMLCanvasElement | URL
 
-export async function decodeQrCode(element: ImageElement): Promise<string[]> {
+export async function decodeQrCode(target: Target): Promise<string[]> {
   return new Promise((resolve, reject) => {
     const image = new Image()
 
@@ -43,10 +44,10 @@ export async function decodeQrCode(element: ImageElement): Promise<string[]> {
 
     image.onerror = reject
 
-    if (element instanceof HTMLImageElement) { // 静态图片
+    if (target instanceof HTMLImageElement || target instanceof URL) { // 静态图片 或者 URL 图片
       GM_xmlhttpRequest({
         method: 'GET',
-        url: element.src,
+        url: target instanceof URL ? target.toString() : target.src,
         responseType: 'blob',
         onload: (response) => {
           if (response.status !== 200) {
@@ -58,10 +59,14 @@ export async function decodeQrCode(element: ImageElement): Promise<string[]> {
         onerror: reject,
       })
     }
-    else if (element instanceof HTMLCanvasElement) { // Canvas 图片
-      image.src = element.toDataURL()
+    else if (target instanceof HTMLCanvasElement) { // Canvas 图片
+      image.src = target.toDataURL()
     }
   })
+}
+
+export function tryGetUrls(text: string): URL[] {
+  return Array.from(getUrls(text)).map(url => new URL(url))
 }
 
 export function isUrl(url: string): boolean {

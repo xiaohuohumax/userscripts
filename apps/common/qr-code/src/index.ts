@@ -1,23 +1,31 @@
-import type { ImageElement } from './utils'
+import type { Target } from './utils'
 import { GM_download, GM_registerMenuCommand, GM_setClipboard } from '$'
 import { Notify } from 'notiflix/build/notiflix-notify-aio'
 import QRCode from 'qrcode'
 import Swal from 'sweetalert'
 import { ID, VERSION } from 'virtual:meta'
 
-import { decodeQrCode, isUrl } from './utils'
+import { decodeQrCode, isUrl, tryGetUrls } from './utils'
 
 console.log(`${ID}(v${VERSION})`)
 
-let image: ImageElement | null = null
+let target: Target | null = null
 let selection: string | null = null
 
 function handleDecodeQrCodeMenuClick() {
-  if (!image) {
-    return Notify.warning('未选择图片, 请先右键选择图片')
+  if (selection !== null) {
+    const urls = tryGetUrls(selection)
+    if (urls.length === 0) {
+      return Notify.warning('选择的文本中未找到有效的链接, 请确认文本是否有效')
+    }
+    target = urls[0]
   }
 
-  decodeQrCode(image).then((results) => {
+  if (target === null) {
+    return Notify.warning('未选择图片或图片链接, 请先右键选择图片或图片链接')
+  }
+
+  decodeQrCode(target).then((results) => {
     if (results.length === 0) {
       return Notify.warning('未识别到二维码, 请确认图片是否有效')
     }
@@ -89,7 +97,7 @@ function handleDecodeQrCodeMenuClick() {
   }).catch((error) => {
     Notify.failure('识别失败, 请检查图片是否有效')
     console.error(error)
-  }).finally(() => (image = null))
+  }).finally(() => (target = null))
 }
 
 async function handleEncodeQrCodeMenuClick() {
@@ -126,7 +134,7 @@ GM_registerMenuCommand('Encode QR Code', handleEncodeQrCodeMenuClick)
 
 document.addEventListener('contextmenu', (event) => {
   if (event.target instanceof HTMLImageElement || event.target instanceof HTMLCanvasElement) {
-    image = event.target
+    target = event.target
   }
 })
 

@@ -1,5 +1,11 @@
 # common-qr-code
 
+## 1.6.0
+
+### Minor Changes
+
+- 支持识别图片链接中的二维码信息
+
 ## 1.5.0
 
 ### Minor Changes

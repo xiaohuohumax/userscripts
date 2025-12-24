@@ -19,6 +19,8 @@
 
 ![](https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/apps/common/qr-code/images/use.gif)
 
+![](https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/apps/common/qr-code/images/selection.gif)
+
 ![](https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/apps/common/qr-code/images/encdoe.gif)
 
 ## 🚨 免责声明
