@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GitHub 仪表盘页面自动加载更多（GitHub Dashboard Auto More）
 // @namespace    xiaohuohumax/userscripts/github-dashboard-auto-more
-// @version      1.0.0
+// @version      1.0.1
 // @author       xiaohuohumax
 // @description  我负责点，你负责看！
 // @license      MIT
@@ -40,7 +40,7 @@
     return debounced;
   };
   const ID = "github-dashboard-auto-more";
-  const VERSION = "1.0.0";
+  const VERSION = "1.0.1";
   console.log(`${ID}(v${VERSION})`);
   function autoClick() {
     const selectors = ".ajax-pagination-btn.color-bg-overlay";
