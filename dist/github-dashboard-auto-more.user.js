@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         GitHub 仪表盘页面自动加载更多（GitHub Dashboard Auto More）
-// @namespace    xiaohuohumax/userscripts/dashboard-auto-more
+// @namespace    xiaohuohumax/userscripts/github-dashboard-auto-more
 // @version      1.0.0
 // @author       xiaohuohumax
 // @description  我负责点，你负责看！
 // @license      MIT
 // @icon         https://github.githubassets.com/favicons/favicon-dark.png
 // @source       https://github.com/xiaohuohumax/userscripts.git
-// @downloadURL  https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/dist/dashboard-auto-more.user.js
-// @updateURL    https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/dist/dashboard-auto-more.user.js
+// @downloadURL  https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/dist/github-dashboard-auto-more.user.js
+// @updateURL    https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/dist/github-dashboard-auto-more.user.js
 // @match        https://github.com
 // @noframes
 // ==/UserScript==
