@@ -1,5 +1,11 @@
 # right-click-tab
 
+## 1.4.0
+
+### Minor Changes
+
+- 选择文本打开链接由只开第一个改为打开全部
+
 ## 1.3.1
 
 ### Patch Changes
