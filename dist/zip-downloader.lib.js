@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Zip Downloader
 // @namespace   xiaohuohumax/userscripts/zip-downloader
-// @version     2.0.3
+// @version     2.1.0
 // @author      xiaohuohumax
 // @description Zip Downloader -- 资源下载器（下载资源、Zip 压缩、下载到本地）
 // @license     MIT
@@ -6637,7 +6637,7 @@ var __privateWrapper = (obj, member, setter, getter) => ({
     await Promise.all(options.resources.map((resource, index) => limit(async () => {
       var _a;
       await ((_a = options.onProgress) == null ? void 0 : _a.call(options, index));
-      const reader = isBlobResource(resource) ? new BlobReader(resource.blob) : new HttpReader(resource.url);
+      const reader = isBlobResource(resource) ? new BlobReader(typeof resource.blob === "function" ? await resource.blob() : resource.blob) : new HttpReader(resource.url);
       return writer.add(resource.name, reader);
     })));
     const blob = await writer.close();
