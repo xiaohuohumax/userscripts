@@ -28,11 +28,11 @@
 
 **Resource 参数说明：**
 
-| 参数名 | 类型   | 是否必填 | 默认值 | 说明          |
-| ------ | ------ | -------- | ------ | ------------- |
-| `name` | string | 是       |        | 资源名称      |
-| `url`  | string | 否       |        | URL 类型资源  |
-| `blob` | Blob   | 否       |        | Blob 类型资源 |
+| 参数名 | 类型                          | 是否必填 | 默认值 | 说明          |
+| ------ | ----------------------------- | -------- | ------ | ------------- |
+| `name` | string                        | 是       |        | 资源名称      |
+| `url`  | string                        | 否       |        | URL 类型资源  |
+| `blob` | Blob 或者 () => Promise<Blob> | 否       |        | Blob 类型资源 |
 
 ## 📦 使用示例
 
@@ -46,6 +46,13 @@ await zipDownloader({
     {
       name: 'hello.txt',
       blob: new Blob(['hello world'], { type: 'text/plain' }),
+    },
+    {
+      name: 'world.txt',
+      blob: async () => {
+        const response = await fetch('https://example.com/world.txt')
+        return response.blob()
+      },
     },
   ],
   concurrency: 10,
@@ -64,6 +71,13 @@ const blob = await zipDownloader({
     {
       name: 'hello.txt',
       blob: new Blob(['hello world'], { type: 'text/plain' }),
+    },
+    {
+      name: 'world.txt',
+      blob: async () => {
+        const response = await fetch('https://example.com/world.txt')
+        return response.blob()
+      },
     },
   ],
   concurrency: 10,

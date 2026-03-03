@@ -8,7 +8,7 @@ export interface UrlResource {
 
 export interface BlobResource {
   name: string
-  blob: Blob
+  blob: Blob | (() => Promise<Blob>)
 }
 
 function isBlobResource(resource: Resource): resource is BlobResource {
@@ -43,7 +43,7 @@ export default async function zipDownloader(options: Options): Promise<void | Bl
   await Promise.all(options.resources.map((resource, index) => limit(async () => {
     await options.onProgress?.(index)
     const reader = isBlobResource(resource)
-      ? new BlobReader(resource.blob)
+      ? new BlobReader(typeof resource.blob === 'function' ? await resource.blob() : resource.blob)
       : new HttpReader(resource.url)
     return writer.add(resource.name, reader)
   })))
