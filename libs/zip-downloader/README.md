@@ -19,20 +19,20 @@
 
 **Options 参数说明：**
 
-| 参数名        | 类型                             | 是否必填 | 默认值 | 说明                                                                             |
-| ------------- | -------------------------------- | -------- | ------ | -------------------------------------------------------------------------------- |
-| `filename`    | string                           | 否       |        | 保存的文件名，**添加此参数时会将压缩包保存到本地，未配置返回压缩包的 Blob 对象** |
-| `resources`   | Resource[]                       | 是       |        | 资源列表，数组，每个元素为对象，包含 `name` 和 `url` 或者 `blob` 字段            |
-| `concurrency` | number                           | 否       | `10`   | 并发数，默认 `10`                                                                |
-| `onProgress`  | (index: number) => Promise<void> | 否       |        | 下载进度回调函数，参数为当前正在下载的资源索引                                   |
+| 参数名        | 类型                                      | 是否必填 | 默认值 | 说明                                                                             |
+| ------------- | ----------------------------------------- | -------- | ------ | -------------------------------------------------------------------------------- |
+| `filename`    | string                                    | 否       |        | 保存的文件名，**添加此参数时会将压缩包保存到本地，未配置返回压缩包的 Blob 对象** |
+| `resources`   | (Resource \| () => Promise\<Resource\>)[] | 是       |        | 资源列表，数组，每个元素为对象，包含 `name` 和 `url` 或者 `blob` 字段            |
+| `concurrency` | number                                    | 否       | `10`   | 并发数，默认 `10`                                                                |
+| `onProgress`  | (index: number) => Promise\<void\>        | 否       |        | 下载进度回调函数，参数为当前正在下载的资源索引                                   |
 
 **Resource 参数说明：**
 
-| 参数名 | 类型                          | 是否必填 | 默认值 | 说明          |
-| ------ | ----------------------------- | -------- | ------ | ------------- |
-| `name` | string                        | 是       |        | 资源名称      |
-| `url`  | string                        | 否       |        | URL 类型资源  |
-| `blob` | Blob 或者 () => Promise<Blob> | 否       |        | Blob 类型资源 |
+| 参数名 | 类型                            | 是否必填 | 默认值 | 说明          |
+| ------ | ------------------------------- | -------- | ------ | ------------- |
+| `name` | string                          | 是       |        | 资源名称      |
+| `url`  | string                          | 否       |        | URL 类型资源  |
+| `blob` | Blob 或者 () => Promise\<Blob\> | 否       |        | Blob 类型资源 |
 
 ## 📦 使用示例
 
@@ -48,12 +48,13 @@ await zipDownloader({
       blob: new Blob(['hello world'], { type: 'text/plain' }),
     },
     {
-      name: 'world.txt',
-      blob: async () => {
-        const response = await fetch('https://example.com/world.txt')
-        return response.blob()
-      },
+      name: 'example.txt',
+      blob: () => fetch('https://example.com').then(response => response.blob()),
     },
+    () => fetch('https://example.com').then(response => ({
+      name: 'example2.txt',
+      blob: () => response.blob(),
+    })),
   ],
   concurrency: 10,
   async onProgress(index) {
@@ -73,12 +74,13 @@ const blob = await zipDownloader({
       blob: new Blob(['hello world'], { type: 'text/plain' }),
     },
     {
-      name: 'world.txt',
-      blob: async () => {
-        const response = await fetch('https://example.com/world.txt')
-        return response.blob()
-      },
+      name: 'example.txt',
+      blob: () => fetch('https://example.com').then(response => response.blob()),
     },
+    () => fetch('https://example.com').then(response => ({
+      name: 'example2.txt',
+      blob: () => response.blob(),
+    })),
   ],
   concurrency: 10,
   async onProgress(index) {

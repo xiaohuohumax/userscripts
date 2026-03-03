@@ -11,11 +11,7 @@ export interface BlobResource {
   blob: Blob | (() => Promise<Blob>)
 }
 
-function isBlobResource(resource: Resource): resource is BlobResource {
-  return (resource as BlobResource).blob instanceof Blob
-}
-
-export type Resource = UrlResource | BlobResource
+export type Resource = UrlResource | BlobResource | (() => Promise<UrlResource | BlobResource>)
 
 interface OptionsBase {
   resources: Resource[]
@@ -42,10 +38,15 @@ export default async function zipDownloader(options: Options): Promise<void | Bl
   const limit = pLimit(options.concurrency || 10)
   await Promise.all(options.resources.map((resource, index) => limit(async () => {
     await options.onProgress?.(index)
-    const reader = isBlobResource(resource)
-      ? new BlobReader(typeof resource.blob === 'function' ? await resource.blob() : resource.blob)
-      : new HttpReader(resource.url)
-    return writer.add(resource.name, reader)
+    if (typeof resource === 'function') {
+      resource = await resource()
+    }
+    if (typeof resource === 'object' && 'url' in resource) {
+      return writer.add(resource.name, new HttpReader(resource.url))
+    }
+    if (typeof resource === 'object' && 'blob' in resource) {
+      return writer.add(resource.name, new BlobReader(typeof resource.blob === 'function' ? await resource.blob() : resource.blob))
+    }
   })))
   const blob = await writer.close()
   if (!isSaveOptions(options)) {

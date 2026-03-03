@@ -1,5 +1,11 @@
 # @xiaohuohumax/xpath-selector
 
+## 2.2.0
+
+### Minor Changes
+
+- 支持动态函数
+
 ## 2.1.0
 
 ### Minor Changes
