@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Zip Downloader
 // @namespace   xiaohuohumax/userscripts/zip-downloader
-// @version     2.1.0
+// @version     2.2.0
 // @author      xiaohuohumax
 // @description Zip Downloader -- 资源下载器（下载资源、Zip 压缩、下载到本地）
 // @license     MIT
@@ -6625,9 +6625,6 @@ var __privateWrapper = (obj, member, setter, getter) => ({
       throw new TypeError("Expected `concurrency` to be a number from 1 and up");
     }
   }
-  function isBlobResource(resource) {
-    return resource.blob instanceof Blob;
-  }
   function isSaveOptions(options) {
     return "filename" in options;
   }
@@ -6637,8 +6634,15 @@ var __privateWrapper = (obj, member, setter, getter) => ({
     await Promise.all(options.resources.map((resource, index) => limit(async () => {
       var _a;
       await ((_a = options.onProgress) == null ? void 0 : _a.call(options, index));
-      const reader = isBlobResource(resource) ? new BlobReader(typeof resource.blob === "function" ? await resource.blob() : resource.blob) : new HttpReader(resource.url);
-      return writer.add(resource.name, reader);
+      if (typeof resource === "function") {
+        resource = await resource();
+      }
+      if (typeof resource === "object" && "url" in resource) {
+        return writer.add(resource.name, new HttpReader(resource.url));
+      }
+      if (typeof resource === "object" && "blob" in resource) {
+        return writer.add(resource.name, new BlobReader(typeof resource.blob === "function" ? await resource.blob() : resource.blob));
+      }
     })));
     const blob = await writer.close();
     if (!isSaveOptions(options)) {
