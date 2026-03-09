@@ -106,7 +106,7 @@ importers:
         specifier: workspace:^
         version: link:../../../packages/vite-plugin-meta
 
-  apps/github/commit-sort:
+  apps/github/sort-commits-by-last-edited:
     devDependencies:
       vite-plugin-meta:
         specifier: workspace:^

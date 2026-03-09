@@ -1,4 +1,10 @@
-# github-commit-sort
+# sort-github-commits-by-last-edited
+
+## 1.2.0
+
+### Minor Changes
+
+- 按钮添加悬停提示, 脚本描述完善
 
 ## 1.1.3
 

@@ -108,6 +108,7 @@ function main(observer: MutationObserver) {
   if (!sortButton) {
     sortButton = document.createElement('button')
     sortButton.textContent = store.sortIcon
+    sortButton.title = 'Sort commits by last edited'
     sortButton.classList.add('Button', 'Button--iconOnly', 'Button--secondary')
     sortButton.id = SORT_BUTTON_ID
     sortButton.style.width = 'var(--control-xsmall-size)'

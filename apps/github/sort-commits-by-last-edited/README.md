@@ -1,14 +1,14 @@
-# GitHub 仓库文件按提交时间排序（GitHub Commit Sort）
+# GitHub 仓库文件按提交时间排序（Sort Github Commits By Last Edited）
 
 **GitHub 仓库无法快速查看最新的变更文件？试试这个 GitHub 仓库文件按提交时间排序的用户脚本吧！**
 
-<a href="https://github.com/xiaohuohumax/userscripts/tree/main/apps/github/commit-sort">
+<a href="https://github.com/xiaohuohumax/userscripts/tree/main/apps/github/sort-commits-by-last-edited">
   <img src="https://img.shields.io/badge/GITHUB-项目地址-brightgreen?style=for-the-badge&logo=github" alt="项目地址" />
 </a>
 <a href="https://github.com/xiaohuohumax/userscripts/blob/main/LICENSE">
   <img src="https://img.shields.io/badge/MIT-开源协议-orange?style=for-the-badge&logo=github" alt="开源协议" />
 </a>
-<a href="https://github.com/xiaohuohumax/userscripts/blob/main/apps/github/commit-sort/CHANGELOG.md">
+<a href="https://github.com/xiaohuohumax/userscripts/blob/main/apps/github/sort-commits-by-last-edited/CHANGELOG.md">
   <img src="https://img.shields.io/badge/CHANGELOG-更新日志-blue?style=for-the-badge&logo=github" alt="更新日志" />
 </a>
 <a href="https://github.com/xiaohuohumax/userscripts/issues">
@@ -17,7 +17,7 @@
 
 ## 📖 使用方式
 
-![](https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/apps/github/commit-sort/images/sort.gif)
+![](https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/apps/github/sort-commits-by-last-edited/images/sort.gif)
 
 ## 🚨 免责声明
 
