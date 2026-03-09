@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name         GitHub 仓库文件按提交时间排序（GitHub Commit Sort）
-// @namespace    xiaohuohumax/userscripts/github-commit-sort
-// @version      1.1.3
+// @name         GitHub 仓库文件按提交时间排序（Sort Github Commits By Last Edited）
+// @namespace    xiaohuohumax/userscripts/sort-github-commits-by-last-edited
+// @version      1.2.0
 // @author       xiaohuohumax
 // @description  GitHub 仓库无法快速查看最新的变更文件？试试这个 GitHub 仓库文件按提交时间排序的用户脚本吧！
 // @license      MIT
 // @icon         https://github.githubassets.com/favicons/favicon-dark.png
 // @source       https://github.com/xiaohuohumax/userscripts.git
-// @downloadURL  https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/dist/github-commit-sort.user.js
-// @updateURL    https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/dist/github-commit-sort.user.js
+// @downloadURL  https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/dist/sort-github-commits-by-last-edited.user.js
+// @updateURL    https://raw.githubusercontent.com/xiaohuohumax/userscripts/main/dist/sort-github-commits-by-last-edited.user.js
 // @match        https://github.com/*
 // @grant        GM_addValueChangeListener
 // @grant        GM_getValue
@@ -45,8 +45,8 @@
     debounced.flush = (...args) => func(...args);
     return debounced;
   };
-  const ID = "github-commit-sort";
-  const VERSION = "1.1.3";
+  const ID = "sort-github-commits-by-last-edited";
+  const VERSION = "1.2.0";
   var _GM_addValueChangeListener = /* @__PURE__ */ (() => typeof GM_addValueChangeListener != "undefined" ? GM_addValueChangeListener : void 0)();
   var _GM_getValue = /* @__PURE__ */ (() => typeof GM_getValue != "undefined" ? GM_getValue : void 0)();
   var _GM_setValue = /* @__PURE__ */ (() => typeof GM_setValue != "undefined" ? GM_setValue : void 0)();
@@ -159,6 +159,7 @@
     if (!sortButton) {
       sortButton = document.createElement("button");
       sortButton.textContent = store.sortIcon;
+      sortButton.title = "Sort commits by last edited";
       sortButton.classList.add("Button", "Button--iconOnly", "Button--secondary");
       sortButton.id = SORT_BUTTON_ID;
       sortButton.style.width = "var(--control-xsmall-size)";
