@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Zip Downloader
 // @namespace   xiaohuohumax/userscripts/zip-downloader
-// @version     2.2.0
+// @version     2.3.0
 // @author      xiaohuohumax
 // @description Zip Downloader -- 资源下载器（下载资源、Zip 压缩、下载到本地）
 // @license     MIT
@@ -6625,8 +6625,7 @@ var __privateWrapper = (obj, member, setter, getter) => ({
       throw new TypeError("Expected `concurrency` to be a number from 1 and up");
     }
   }
-  async function throwOnError(error, index) {
-    console.error(`Error while processing resource ${index}: ${error}`);
+  async function throwOnError(error, _index) {
     throw error;
   }
   function isSaveOptions(options) {
