@@ -1,5 +1,11 @@
 # @xiaohuohumax/xpath-selector
 
+## 2.3.0
+
+### Minor Changes
+
+- 支持资源下载异常时处理
+
 ## 2.2.0
 
 ### Minor Changes

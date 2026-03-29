@@ -17,6 +17,11 @@ interface OptionsBase {
   resources: Resource[]
   concurrency?: number
   onProgress?: (index: number) => Promise<void>
+  onError?: (error: Error, index: number) => Promise<void>
+}
+
+async function throwOnError(error: Error, _index: number): Promise<void> {
+  throw error
 }
 
 export interface SaveOptions extends OptionsBase {
@@ -36,16 +41,22 @@ export default async function zipDownloader(options: ZipOptions): Promise<Blob>
 export default async function zipDownloader(options: Options): Promise<void | Blob> {
   const writer = new ZipWriter(new BlobWriter('application/zip'))
   const limit = pLimit(options.concurrency || 10)
+  const onError = options.onError || throwOnError
   await Promise.all(options.resources.map((resource, index) => limit(async () => {
-    await options.onProgress?.(index)
-    if (typeof resource === 'function') {
-      resource = await resource()
+    try {
+      await options.onProgress?.(index)
+      if (typeof resource === 'function') {
+        resource = await resource()
+      }
+      if (typeof resource === 'object' && 'url' in resource) {
+        return await writer.add(resource.name, new HttpReader(resource.url))
+      }
+      if (typeof resource === 'object' && 'blob' in resource) {
+        return await writer.add(resource.name, new BlobReader(typeof resource.blob === 'function' ? await resource.blob() : resource.blob))
+      }
     }
-    if (typeof resource === 'object' && 'url' in resource) {
-      return writer.add(resource.name, new HttpReader(resource.url))
-    }
-    if (typeof resource === 'object' && 'blob' in resource) {
-      return writer.add(resource.name, new BlobReader(typeof resource.blob === 'function' ? await resource.blob() : resource.blob))
+    catch (error) {
+      await onError(error as Error, index)
     }
   })))
   const blob = await writer.close()

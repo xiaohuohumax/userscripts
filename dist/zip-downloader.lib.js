@@ -6625,23 +6625,32 @@ var __privateWrapper = (obj, member, setter, getter) => ({
       throw new TypeError("Expected `concurrency` to be a number from 1 and up");
     }
   }
+  async function throwOnError(error, index) {
+    console.error(`Error while processing resource ${index}: ${error}`);
+    throw error;
+  }
   function isSaveOptions(options) {
     return "filename" in options;
   }
   async function zipDownloader2(options) {
     const writer = new ZipWriter(new BlobWriter("application/zip"));
     const limit = pLimit(options.concurrency || 10);
+    const onError = options.onError || throwOnError;
     await Promise.all(options.resources.map((resource, index) => limit(async () => {
       var _a;
-      await ((_a = options.onProgress) == null ? void 0 : _a.call(options, index));
-      if (typeof resource === "function") {
-        resource = await resource();
-      }
-      if (typeof resource === "object" && "url" in resource) {
-        return writer.add(resource.name, new HttpReader(resource.url));
-      }
-      if (typeof resource === "object" && "blob" in resource) {
-        return writer.add(resource.name, new BlobReader(typeof resource.blob === "function" ? await resource.blob() : resource.blob));
+      try {
+        await ((_a = options.onProgress) == null ? void 0 : _a.call(options, index));
+        if (typeof resource === "function") {
+          resource = await resource();
+        }
+        if (typeof resource === "object" && "url" in resource) {
+          return await writer.add(resource.name, new HttpReader(resource.url));
+        }
+        if (typeof resource === "object" && "blob" in resource) {
+          return await writer.add(resource.name, new BlobReader(typeof resource.blob === "function" ? await resource.blob() : resource.blob));
+        }
+      } catch (error) {
+        await onError(error, index);
       }
     })));
     const blob = await writer.close();
