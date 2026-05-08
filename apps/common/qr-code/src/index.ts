@@ -52,5 +52,6 @@ document.addEventListener('contextmenu', (event) => {
 })
 
 document.addEventListener('selectionchange', () => {
-  selection = document.getSelection()?.toString()
+  selection = document.getSelection()?.toString() || ''
+  selection = selection.length > 0 ? selection : undefined
 })

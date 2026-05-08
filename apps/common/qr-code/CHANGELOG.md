@@ -1,5 +1,11 @@
 # common-qr-code
 
+## 1.7.1
+
+### Patch Changes
+
+- 修复选择文字后无法识别图片问题
+
 ## 1.7.0
 
 ### Minor Changes

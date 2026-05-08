@@ -3793,7 +3793,8 @@
   });
   document.addEventListener("selectionchange", () => {
     var _a;
-    selection = (_a = document.getSelection()) == null ? void 0 : _a.toString();
+    selection = ((_a = document.getSelection()) == null ? void 0 : _a.toString()) || "";
+    selection = selection.length > 0 ? selection : void 0;
   });
 
 })(Notiflix, jsQR);
