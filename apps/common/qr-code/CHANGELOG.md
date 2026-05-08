@@ -1,5 +1,11 @@
 # common-qr-code
 
+## 1.7.0
+
+### Minor Changes
+
+- 图片链接获取异常时显示原因
+
 ## 1.6.0
 
 ### Minor Changes
