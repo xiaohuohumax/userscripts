@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         图片二维码识别/生成工具（Common QR Code）
 // @namespace    xiaohuohumax/userscripts/common-qr-code
-// @version      1.7.0
+// @version      1.7.1
 // @author       xiaohuohumax
 // @description  右键图片，识别二维码并复制到剪贴板。右键文字，生成二维码并展示。
 // @license      MIT
@@ -2181,7 +2181,7 @@
   var browserExports = requireBrowser();
   const QRCode = /* @__PURE__ */ getDefaultExportFromCjs(browserExports);
   const ID = "common-qr-code";
-  const VERSION = "1.7.0";
+  const VERSION = "1.7.1";
   var ipRegex;
   var hasRequiredIpRegex;
   function requireIpRegex() {
