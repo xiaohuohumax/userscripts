@@ -14,6 +14,7 @@ export default defineConfig({
         externalGlobals: {
           'jsqr': cdn.unpkg('jsQR', 'dist/jsQR.js'),
           'notiflix/build/notiflix-notify-aio': cdn.unpkg('Notiflix', 'build/notiflix-notify-aio.js'),
+          'sweetalert': cdn.unpkg('swal', 'dist/sweetalert.min.js'),
         },
       },
       userscript: {

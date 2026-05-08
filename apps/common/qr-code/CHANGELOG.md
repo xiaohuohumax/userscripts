@@ -1,5 +1,11 @@
 # common-qr-code
 
+## 1.7.2
+
+### Patch Changes
+
+- Sweetalert 改为 require 引入
+
 ## 1.7.1
 
 ### Patch Changes
