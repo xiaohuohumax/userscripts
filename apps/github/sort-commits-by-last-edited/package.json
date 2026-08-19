@@ -1,7 +1,7 @@
 {
   "name": "sort-github-commits-by-last-edited",
   "type": "module",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "description": "GitHub 仓库文件按提交时间排序（Sort Github Commits By Last Edited）-- GitHub 仓库无法快速查看最新的变更文件？试试这个 GitHub 仓库文件按提交时间排序的用户脚本吧！",
   "author": {

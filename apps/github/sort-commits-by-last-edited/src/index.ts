@@ -9,32 +9,14 @@ interface Row {
   index: number
 }
 
-type TypeOrEmpty<T> = T | null | undefined
-
 const SORT_BUTTON_ID = `${ID}-sort-button`
 
 const store: Store = new Store()
 
-function queryTable(): TypeOrEmpty<HTMLTableElement> {
-  return document.querySelector<HTMLTableElement>('table[aria-labelledby="folders-and-files"]')
-}
-
-function querySortButtonParent(): { sortButtonParent: TypeOrEmpty<HTMLDivElement>, isMainPage: boolean } {
-  const table = queryTable()
-  const mainTable = table?.querySelector<HTMLDivElement>(
-    'body tr[class^="DirectoryContent-module"] > td > div > div:last-child',
-  )
-  if (mainTable) {
-    return { sortButtonParent: mainTable, isMainPage: true }
-  }
-  const treeTable = table?.querySelector<HTMLDivElement>(
-    'thead > tr > th:last-child > div',
-  )
-  return { sortButtonParent: treeTable, isMainPage: false }
-}
-
 function sortRowsByState(sortButton: HTMLButtonElement, toggle: boolean) {
-  const tableBody = queryTable()?.querySelector<HTMLTableSectionElement>('tbody')
+  const tableBody = document?.querySelector<HTMLTableSectionElement>(
+    'table[aria-labelledby="folders-and-files"] tbody',
+  )
   if (!tableBody) {
     return
   }
@@ -89,22 +71,20 @@ function sortRowsByState(sortButton: HTMLButtonElement, toggle: boolean) {
 }
 
 function main(observer: MutationObserver) {
-  const { sortButtonParent, isMainPage } = querySortButtonParent()
-  if (!sortButtonParent) {
+  const latestCommit = document.querySelector<HTMLDivElement>(`
+    [class^="OverviewContent-module"] [class^="LatestCommit-module"] > div:last-child,
+    [class^="CodeView-module"] [class^="LatestCommit-module"] > div:last-child
+  `)
+
+  if (!latestCommit) {
     return
   }
 
   observer && observer.disconnect()
 
-  if (isMainPage) {
-    sortButtonParent.style.alignItems = 'center'
-  }
-  else {
-    const th = sortButtonParent.parentNode as HTMLElement
-    th.style.width = '170px'
-  }
+  latestCommit.style.alignItems = 'center'
 
-  let sortButton = document.getElementById(SORT_BUTTON_ID) as TypeOrEmpty<HTMLButtonElement>
+  let sortButton = document.getElementById(SORT_BUTTON_ID) as HTMLButtonElement | null
   if (!sortButton) {
     sortButton = document.createElement('button')
     sortButton.textContent = store.sortIcon
@@ -113,8 +93,7 @@ function main(observer: MutationObserver) {
     sortButton.id = SORT_BUTTON_ID
     sortButton.style.width = 'var(--control-xsmall-size)'
     sortButton.style.height = 'var(--control-xsmall-size)'
-    sortButton.style.marginLeft = isMainPage ? '0' : '10px'
-    sortButtonParent.appendChild(sortButton)
+    latestCommit.appendChild(sortButton)
     sortButton.addEventListener('click', () => sortRowsByState(sortButton!, true))
   }
   sortRowsByState(sortButton, false)
