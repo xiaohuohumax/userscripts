@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GitHub 仓库文件按提交时间排序（Sort Github Commits By Last Edited）
 // @namespace    xiaohuohumax/userscripts/sort-github-commits-by-last-edited
-// @version      1.2.0
+// @version      1.2.1
 // @author       xiaohuohumax
 // @description  GitHub 仓库无法快速查看最新的变更文件？试试这个 GitHub 仓库文件按提交时间排序的用户脚本吧！
 // @license      MIT
@@ -46,7 +46,7 @@
     return debounced;
   };
   const ID = "sort-github-commits-by-last-edited";
-  const VERSION = "1.2.0";
+  const VERSION = "1.2.1";
   var _GM_addValueChangeListener = /* @__PURE__ */ (() => typeof GM_addValueChangeListener != "undefined" ? GM_addValueChangeListener : void 0)();
   var _GM_getValue = /* @__PURE__ */ (() => typeof GM_getValue != "undefined" ? GM_getValue : void 0)();
   var _GM_setValue = /* @__PURE__ */ (() => typeof GM_setValue != "undefined" ? GM_setValue : void 0)();
@@ -85,25 +85,10 @@
   }
   const SORT_BUTTON_ID = `${ID}-sort-button`;
   const store = new Store();
-  function queryTable() {
-    return document.querySelector('table[aria-labelledby="folders-and-files"]');
-  }
-  function querySortButtonParent() {
-    const table = queryTable();
-    const mainTable = table == null ? void 0 : table.querySelector(
-      'body tr[class^="DirectoryContent-module"] > td > div > div:last-child'
-    );
-    if (mainTable) {
-      return { sortButtonParent: mainTable, isMainPage: true };
-    }
-    const treeTable = table == null ? void 0 : table.querySelector(
-      "thead > tr > th:last-child > div"
-    );
-    return { sortButtonParent: treeTable, isMainPage: false };
-  }
   function sortRowsByState(sortButton, toggle) {
-    var _a;
-    const tableBody = (_a = queryTable()) == null ? void 0 : _a.querySelector("tbody");
+    const tableBody = document == null ? void 0 : document.querySelector(
+      'table[aria-labelledby="folders-and-files"] tbody'
+    );
     if (!tableBody) {
       return;
     }
@@ -144,17 +129,15 @@
     });
   }
   function main(observer2) {
-    const { sortButtonParent, isMainPage } = querySortButtonParent();
-    if (!sortButtonParent) {
+    const latestCommit = document.querySelector(`
+    [class^="OverviewContent-module"] [class^="LatestCommit-module"] > div:last-child,
+    [class^="CodeView-module"] [class^="LatestCommit-module"] > div:last-child
+  `);
+    if (!latestCommit) {
       return;
     }
     observer2 && observer2.disconnect();
-    if (isMainPage) {
-      sortButtonParent.style.alignItems = "center";
-    } else {
-      const th = sortButtonParent.parentNode;
-      th.style.width = "170px";
-    }
+    latestCommit.style.alignItems = "center";
     let sortButton = document.getElementById(SORT_BUTTON_ID);
     if (!sortButton) {
       sortButton = document.createElement("button");
@@ -164,8 +147,7 @@
       sortButton.id = SORT_BUTTON_ID;
       sortButton.style.width = "var(--control-xsmall-size)";
       sortButton.style.height = "var(--control-xsmall-size)";
-      sortButton.style.marginLeft = isMainPage ? "0" : "10px";
-      sortButtonParent.appendChild(sortButton);
+      latestCommit.appendChild(sortButton);
       sortButton.addEventListener("click", () => sortRowsByState(sortButton, true));
     }
     sortRowsByState(sortButton, false);
